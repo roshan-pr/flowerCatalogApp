@@ -10,7 +10,9 @@ const determineContentType = (extension) => {
   const contentTypes = {
     jpeg: 'image/jpeg',
     html: 'text/html',
-    pdf: 'application/pdf'
+    pdf: 'application/pdf',
+    gif: 'image/gif',
+    css: 'text/html'
   };
   return contentTypes[extension] || 'text/plain';
 };
@@ -19,6 +21,7 @@ const serveFileContent = (directory = './html') => {
   const fileContents = readFiles(directory);
   return ({ uri }, response) => {
 
+    uri = uri === '/' ? '/homePage.html' : uri;
     const fileName = directory + uri;
     const content = fileContents[fileName];
     if (!content) {

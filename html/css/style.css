@@ -1,5 +1,18 @@
-body>header {
+header {
   text-align: center;
   font-weight: 600;
   font-size: 50px;
+}
+
+.page-wrapper>header>h2 {
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.content>img {
+  width: 1000px;
 }

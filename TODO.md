@@ -1,13 +1,13 @@
 **TODO**
 
   - [ ] Style html files
-  - [ ] add gif in homepage
 
   - [ ] Serve file in the server
   
 
 **Done**
 
+  - [x] add gif in homepage
   - [x] Separate handler
   - [x] Add response class for handling socket
   - [x] Add a server
