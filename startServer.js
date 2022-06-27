@@ -1,12 +1,5 @@
-const { serveFileContent } = require('./src/serveFileContent.js');
-const { noFileHandler } = require('./src/noFileHandler.js');
 const { server } = require('./src/server.js');
-
-const createHandler = (directory) => {
-  const handlers = [serveFileContent(directory), noFileHandler];
-  return (request, response) =>
-    handlers.some((handler) => handler(request, response));
-};
+const { createHandler } = require("./createHandler");
 
 const startServer = (directory) => {
   const port = 8000;

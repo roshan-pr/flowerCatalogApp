@@ -10,6 +10,8 @@ const server = (port, handler) => {
       console.log(request);
       handler(request, response);
     });
+
+    socket.on('error', (err) => console.log(err.message));
   });
 
   server.listen(port, () => console.log(`Server listening to ${port}`));

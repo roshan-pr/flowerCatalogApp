@@ -2,31 +2,30 @@
 
 <head>
   <title>Guest Book</title>
-  <link rel="stylesheet" href="./css/guestBookStyle.css">
-  <style>
-    div {
-      margin-top: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-  <h2>Leave a comment</h2>
-  <form action="comment" method="get">
-    <div>
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name">
-    </div>
+  <div class="page-wrapper">
+    <header>
+      <h2><a href="./homePage.html">&lt;&lt;</a>Guest Page</h2>
+    </header>
 
-    <div>
-      <label for="comment">comment</label>
-      <textarea name="comment" id="comment" cols="20" rows="5"></textarea>
-    </div>
-
-    <div class="submit">
-      <input type="submit" value="Submit">
-    </div>
-  </form>
+    <h3>Leave a comment</h3>
+    <form action="comment" method="get">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required>
+      </div>
+      <div>
+        <label for="comment">comment</label>
+        <textarea name="comment" id="comment" cols="20" rows="5" required></textarea>
+      </div>
+      <div class="submit">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
 </body>
 
 </html>
