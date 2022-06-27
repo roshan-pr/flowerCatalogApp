@@ -1,5 +1,8 @@
 **TODO**
 
+  - [ ] Instead of User entity introduce the guest entity
+
+
   - [ ] Display comments from the user
     - [ ] Display in same page
   
