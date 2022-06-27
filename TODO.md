@@ -1,13 +1,15 @@
 **TODO**
 
-  - [ ] Add response class for handling socket
+  - [ ] Style html files
+  - [ ] add gif in homepage
 
-  - [ ] Separate handler
   - [ ] Serve file in the server
   
 
 **Done**
 
+  - [x] Separate handler
+  - [x] Add response class for handling socket
   - [x] Add a server
     - [x] Launches a home page
 - [x] Add README.md
