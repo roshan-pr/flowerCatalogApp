@@ -17,7 +17,7 @@ const determineContentType = (extension) => {
   return contentTypes[extension] || 'text/plain';
 };
 
-const serveFileContent = (directory = './html') => {
+const serveFileContent = (directory = './public') => {
   const fileContents = readFiles(directory);
   return ({ uri }, response) => {
 
