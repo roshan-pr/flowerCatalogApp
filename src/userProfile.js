@@ -1,16 +1,16 @@
-class User {
-  #username;
+class Log {
+  #name;
   #comment;
   #date;
 
   constructor(username, comment, date) {
-    this.#username = username;
+    this.#name = username;
     this.#comment = comment;
     this.#date = date;
   }
 
   get username() {
-    return this.#username;
+    return this.#name;
   }
 
   get comment() {
@@ -22,22 +22,22 @@ class User {
   }
 }
 
-class Users {
-  #users;
+class Guestbook {
+  #logs;
 
   constructor() {
-    this.#users = [];
+    this.#logs = [];
   }
 
-  addUser(name, comment) {
-    this.#users.push(new User(name, comment, new Date()));
+  enter(name, comment) {
+    this.#logs.push(new Log(name, comment, new Date()));
   }
 
   list() {
-    const list = this.#users.reverse().map(
+    const list = this.#logs.reverse().map(
       (user) => [user.date, user.username, user.comment].join(','));
     return list.join('\n');
   }
 }
 
-module.exports = { User, Users };
+module.exports = { Guestbook };

@@ -1,27 +1,26 @@
-const { User, Users } = require("./userProfile.js");
+const { Guestbook } = require("./userProfile.js");
 
-const setUsers = () => {
-  const users = new Users();
+const setGuestbook = () => {
+  const guestbook = new Guestbook();
   return (request) => {
-    request.users = users;
+    request.guestbook = guestbook;
   }
 };
 
-const handleResponse = (response, users) => {
+const handleResponse = (response, guestbook) => {
   response.statusCode = 200;
   response.setHeader('content-type', 'text/plain');
-  response.send(users.list());
+  response.send(guestbook.list());
   return true;
 };
 
 const commentHandler = (request, response) => {
   const { name, comment } = request.queryParams;
   if (name && comment) {
-    const { users } = request;
-    users.addUser(name, comment);
-    handleResponse(response, users);
+    const { guestbook } = request;
+    guestbook.enter(name, comment);
+    handleResponse(response, guestbook);
   };
-  return false;
 };
 
-module.exports = { setUsers, commentHandler };
+module.exports = { setGuestbook, commentHandler };
