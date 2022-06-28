@@ -7,10 +7,10 @@ const setGuestbook = () => {
   }
 };
 
-const handleResponse = (response, guestbook) => {
-  response.statusCode = 200;
-  response.setHeader('content-type', 'text/plain');
-  response.send(guestbook.list());
+const redirectToGuestbook = (response, guestbook) => {
+  response.statusCode = 302;
+  response.setHeader('location', '/guestbook.html');
+  response.send('');
   return true;
 };
 
@@ -19,7 +19,7 @@ const commentHandler = (request, response) => {
   if (name && comment) {
     const { guestbook } = request;
     guestbook.enter(name, comment);
-    handleResponse(response, guestbook);
+    redirectToGuestbook(response, guestbook);
   };
 };
 

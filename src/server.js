@@ -7,7 +7,7 @@ const server = (port, handler) => {
     socket.on('data', (chunk) => {
       const request = parseRequest(chunk.toString());
       const response = new Response(socket);
-      console.log(request);
+      console.log(request.method, request.uri, request.queryParams);
       handler(request, response);
     });
 

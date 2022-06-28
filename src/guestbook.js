@@ -9,7 +9,7 @@ class Log {
     this.#date = date;
   }
 
-  get username() {
+  get name() {
     return this.#name;
   }
 
@@ -22,6 +22,12 @@ class Log {
   }
 }
 
+const tr = rowContent => `<tr>${rowContent}</tr>`;
+
+const td = data => `<td>${data}</td>`;
+
+const tbody = body => `<tbody>${body}</tbody>`;
+
 class Guestbook {
   #logs;
 
@@ -30,13 +36,20 @@ class Guestbook {
   }
 
   enter(name, comment) {
-    this.#logs.push(new Log(name, comment, new Date()));
+    this.#logs.push(new Log(name, comment, new Date().toLocaleString()));
   }
 
-  list() {
-    const list = this.#logs.reverse().map(
-      (user) => [user.date, user.username, user.comment].join(','));
-    return list.join('\n');
+  comments() {
+    return this.#logs.reverse().map(
+      (log) => [log.date, log.name, log.comment]);
+  }
+
+  html() {
+    const body = this.comments().map(log => {
+      const raw = log.map(data => td(data)).join('');
+      return tr(raw);
+    }).join('');
+    return tbody(body);
   }
 }
 

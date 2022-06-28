@@ -10,6 +10,10 @@ header {
   text-align: center;
 }
 
+header>h2>a {
+  text-decoration: none;
+}
+
 .content {
   display: flex;
   flex-direction: row;

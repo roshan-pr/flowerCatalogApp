@@ -1,12 +1,16 @@
 **TODO**
 
-  - [ ] Display comments from the user
-    - [ ] Display in same page
+  - [ ] Give responsibility of generating page to guestbook class
+    - [ ] Save the comments in file
 
-  - [ ] Rename userProfile to guestbook.js
+  - [ ] Style the table in guestbook.html
+    
 
 **Done**
 
+  - [x] Display comments from the user
+    - [x] Display in same page
+  - [x] Rename userProfile to guestbook.js
   - [x] Instead of User entity introduce the guest entity
   - [x] Style html files
   - [x] Add back to home page link in pages

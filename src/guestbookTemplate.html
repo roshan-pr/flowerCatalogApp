@@ -8,7 +8,7 @@
 <body>
   <div class="page-wrapper">
     <header>
-      <h2><a href="./homePage.html">&lt;&lt;</a>Guest Page</h2>
+      <h2><a href="./homePage.html">&lt;&lt;</a>&nbsp;Guest Page</h2>
     </header>
 
     <h3>Leave a comment</h3>
@@ -18,12 +18,24 @@
         <input type="text" name="name" id="name" required>
       </div>
       <div>
-        <label for="comment">comment</label>
+        <label for="comment">Comment</label>
         <textarea name="comment" id="comment" cols="20" rows="5" required></textarea>
       </div>
+
       <div class="submit">
         <input type="submit" value="Submit">
       </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Command</th>
+          </tr>
+        </thead>
+        __BODY__
+      </table>
     </form>
   </div>
 </body>

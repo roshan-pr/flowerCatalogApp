@@ -20,9 +20,9 @@ const determineContentType = (extension) => {
 const serveFileContent = (directory = './public') => {
   const fileContents = readFiles(directory);
   return ({ uri }, response) => {
-
     uri = uri === '/' ? '/homePage.html' : uri;
     const fileName = directory + uri;
+
     const content = fileContents[fileName];
     if (!content) {
       return false;
@@ -31,7 +31,6 @@ const serveFileContent = (directory = './public') => {
     const extension = getExtension(fileName);
     const contentType = determineContentType(extension);
     response.setHeader('content-type', contentType);
-
     response.send(content);
     return true;
   };
