@@ -1,0 +1,21 @@
+{
+  "name": "flowercatalogapp",
+  "version": "1.0.0",
+  "description": "README",
+  "main": "createHandler.js",
+  "scripts": {
+    "start": "node startServer.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roshan-pr/flowerCatalogApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roshan-pr/flowerCatalogApp/issues"
+  },
+  "homepage": "https://github.com/roshan-pr/flowerCatalogApp#readme"
+}

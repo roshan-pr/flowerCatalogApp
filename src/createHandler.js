@@ -1,6 +1,6 @@
-const { serveFileContent } = require('./src/serveFileContent.js');
-const { noFileHandler } = require('./src/noFileHandler.js');
-const { setUsers, commentHandler } = require('./src/commentHandler.js');
+const { serveFileContent } = require('./serveFileContent.js');
+const { noFileHandler } = require('./noFileHandler.js');
+const { setUsers, commentHandler } = require('./commentHandler.js');
 
 const createHandler = (directory) => {
   const handlers = [setUsers(), commentHandler, serveFileContent(directory), noFileHandler];
