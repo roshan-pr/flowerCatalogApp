@@ -1,4 +1,4 @@
-const { Guestbook } = require("./userProfile.js");
+const { Guestbook } = require("./guestbook.js");
 
 const setGuestbook = () => {
   const guestbook = new Guestbook();
