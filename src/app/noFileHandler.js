@@ -1,7 +1,7 @@
 const noFileHandler = (request, response) => {
   response.StatusCode = 404;
-  response.setHeader('text/plain');
-  response.send('file not found');
+  response.setHeader('Content-type', 'text/plain');
+  response.end('file not found');
   return true;
 };
 

@@ -1,9 +1,9 @@
-const { server } = require('./src/server/server.js');
+const { startServer } = require('./src/server/server.js');
 const { createHandler } = require('./src/app/createHandler.js');
 
-const startServer = (directory) => {
+const server = (directory) => {
   const port = 8000;
-  server(port, createHandler(directory));
+  startServer(port, createHandler(directory));
 };
 
-startServer(...process.argv.slice(2));
+server(...process.argv.slice(2));

@@ -1,4 +1,6 @@
-const { serveFileContent } = require('./serveFileContent.js');
+const { createRouter } = require('../server/router.js');
+
+const { staticFileFrom } = require('./serveFileContent.js');
 const { noFileHandler } = require('./noFileHandler.js');
 const { createGuestbookHandler } = require('./guestbookHandler.js');
 const { Guestbook } = require("./guestbook.js");
@@ -7,10 +9,10 @@ const createHandler = (directory) => {
   const guestbook = new Guestbook();
   const handlers = [
     createGuestbookHandler(guestbook),
-    serveFileContent(directory),
+    staticFileFrom(directory),
     noFileHandler];
-  return (request, response) =>
-    handlers.some((handler) => handler(request, response));
+
+  return createRouter(handlers);
 };
 
 module.exports = { createHandler };

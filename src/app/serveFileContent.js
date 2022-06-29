@@ -17,12 +17,13 @@ const determineContentType = (extension) => {
   return contentTypes[extension] || 'text/plain';
 };
 
-const serveFileContent = (directory = './public') => {
-  const fileContents = readFiles(directory);
-  return ({ uri }, response) => {
-    uri = uri === '/' ? '/homePage.html' : uri;
-    const fileName = directory + uri;
+const staticFileFrom = (rootPath = './public') => {
+  const fileContents = readFiles(rootPath);
 
+  return ({ url }, response) => {
+    url.pathname = url.pathname === '/' ? '/homePage.html' : url.pathname;
+
+    const fileName = rootPath + url.pathname;
     const content = fileContents[fileName];
     if (!content) {
       return false;
@@ -31,9 +32,9 @@ const serveFileContent = (directory = './public') => {
     const extension = getExtension(fileName);
     const contentType = determineContentType(extension);
     response.setHeader('content-type', contentType);
-    response.send(content);
+    response.end(content);
     return true;
   };
 }
 
-module.exports = { serveFileContent };
+module.exports = { staticFileFrom };

@@ -9,34 +9,39 @@ const generateGuestbookPage = (guestbook) => {
 const handleGuestbook = (request, response) => {
   const htmlPage = generateGuestbookPage(request.guestbook);
   response.setHeader('content-type', 'text/html');
-  response.send(htmlPage);
+  response.end(htmlPage);
   return true;
 };
 
-const redirectToGuestbook = (response) => {
-  response.statusCode = 302;
-  response.setHeader('location', '/guestbook.html');
-  response.send('');
-  return true;
+const getGuestbookParams = ({ searchParams }) => {
+  const params = {};
+  for (const [key, value] of searchParams.entries()) {
+    params[key] = value;
+  }
+  return params;
 };
 
-const addComment = (request) => {
-  const { name, comment } = request.queryParams;
+const commentHandler = (request, response) => {
+  const { name, comment } = getGuestbookParams(request.url);
   const { guestbook } = request;
   guestbook.addEntry(name, comment);
+
+  response.statusCode = 302;
+  response.setHeader('location', '/guest-book');
+  response.end('');
+  return true;
 };
 
 const createGuestbookHandler = guestbook => (request, response) => {
-  const { uri } = request;
-  if (uri === '/guestbook.html') {
+  const { pathname } = request.url;
+  if (pathname === '/guest-book' && request.method === 'GET') {
     request.guestbook = guestbook;
     return handleGuestbook(request, response);
   }
 
-  if (uri === '/add-comment') {
+  if (pathname === '/add-comment' && request.method === 'GET') {
     request.guestbook = guestbook;
-    addComment(request);
-    return redirectToGuestbook(response);
+    return commentHandler(request, response);
   }
 
   return false;
