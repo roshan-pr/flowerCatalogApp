@@ -35,7 +35,7 @@ class Guestbook {
     this.#logs = [];
   }
 
-  enter(name, comment) {
+  addEntry(name, comment) {
     this.#logs.push(new Log(name, comment, new Date().toLocaleString()));
   }
 

@@ -1,7 +1,6 @@
 # DOING
 
-  - [ ] Remove comment handler
-    - [ ] Delegate handling adding comment to the guestbook handler
+  - [ ] Implement http module
 
 # TODO
 
@@ -10,11 +9,11 @@
 
   - [ ] Style the table in guestbook.html
   - [ ] Response only to the GET method
-  - [ ] Implement http module
   - [ ] Rename startServer.js to index.js
 
 # Done
-
+  - [x] Remove comment handler
+    - [x] Delegate handling adding comment to the guestbook handler
   - [x] Restructure the files
   - [x] Display comments from the user
     - [x] Display in same page
