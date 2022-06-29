@@ -1,55 +1,36 @@
-class Log {
-  #name;
-  #comment;
-  #date;
-
-  constructor(username, comment, date) {
-    this.#name = username;
-    this.#comment = comment;
-    this.#date = date;
-  }
-
-  get name() {
-    return this.#name;
-  }
-
-  get comment() {
-    return this.#comment;
-  }
-
-  get date() {
-    return this.#date;
-  }
-}
-
 const tr = rowContent => `<tr>${rowContent}</tr>`;
 
 const td = data => `<td>${data}</td>`;
 
-const tbody = body => `<tbody>${body}</tbody>`;
+const tableBody = body => `<tbody>${body}</tbody>`;
 
 class Guestbook {
-  #logs;
+  #comments;
+  #htmlTemplate;
 
-  constructor() {
-    this.#logs = [];
+  constructor(comments, htmlTemplate) {
+    this.#comments = comments;
+    this.#htmlTemplate = htmlTemplate;
+  }
+
+  get comments() {
+    return this.#comments;
   }
 
   addEntry(name, comment) {
-    this.#logs.push(new Log(name, comment, new Date().toLocaleString()));
+    this.#comments.unshift({ name, comment, date: new Date().toLocaleString() });
   }
 
-  #comments() {
-    return this.#logs.reverse().map(
-      (log) => [log.date, log.name, log.comment]);
-  }
+  toHtml() {
+    const allComments = this.#comments;
 
-  html() {
-    const body = this.#comments().map(log => {
-      const raw = log.map(data => td(data)).join('');
-      return tr(raw);
+    const body = allComments.map(commentInfo => {
+      const { name, comment, date } = commentInfo;
+      const rawHtml = [date, name, comment].map(data => td(data)).join('');
+      return tr(rawHtml);
     }).join('');
-    return tbody(body);
+
+    return this.#htmlTemplate.replace('__BODY__', tableBody(body));
   }
 }
 

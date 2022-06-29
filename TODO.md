@@ -1,18 +1,18 @@
 # DOING
 
-  - [ ] Give responsibility of generating page to guestbook class
-    - [ ] Save the comments in file
+  - [ ] Response only to the GET method
 
 # TODO
 
-
   - [ ] Style the table in guestbook.html
-  - [ ] Response only to the GET method
   - [ ] Rename startServer.js to index.js
   - [ ] Rename serveFileContent.js staticFileHandler.js functionality of serveStaticFrom(dir)
     - [ ] Add npm package path, mime-types
   
 # Done
+
+  - [x] Give responsibility of generating page to guestbook class
+    - [x] Save the comments in file
   - [x] Implement http module
   - [x] Remove comment handler
     - [x] Delegate handling adding comment to the guestbook handler
