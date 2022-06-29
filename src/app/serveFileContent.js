@@ -1,21 +1,6 @@
 const fs = require('fs');
 const { readFiles } = require('./readFileContent.js');
-
-const getExtension = (fileName) => {
-  const index = fileName.lastIndexOf('.');
-  return fileName.substring(index + 1);
-};
-
-const determineContentType = (extension) => {
-  const contentTypes = {
-    jpeg: 'image/jpeg',
-    html: 'text/html',
-    pdf: 'application/pdf',
-    gif: 'image/gif',
-    css: 'text/html'
-  };
-  return contentTypes[extension] || 'text/plain';
-};
+const mime = require('mime-types');
 
 const staticFileFrom = (rootPath = './public') => {
   const fileContents = readFiles(rootPath);
@@ -29,9 +14,7 @@ const staticFileFrom = (rootPath = './public') => {
       return false;
     };
 
-    const extension = getExtension(fileName);
-    const contentType = determineContentType(extension);
-    response.setHeader('content-type', contentType);
+    response.setHeader('content-type', mime.lookup(fileName));
     response.end(content);
     return true;
   };

@@ -4,7 +4,8 @@
   "description": "README",
   "main": "createHandler.js",
   "scripts": {
-    "start": "node startServer.js",
+    "main": "index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/roshan-pr/flowerCatalogApp/issues"
   },
-  "homepage": "https://github.com/roshan-pr/flowerCatalogApp#readme"
+  "homepage": "https://github.com/roshan-pr/flowerCatalogApp#readme",
+  "devDependencies": {
+    "mime-types": "^2.1.35",
+    "path": "^0.12.7"
+  }
 }
