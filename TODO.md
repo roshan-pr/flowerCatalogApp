@@ -1,17 +1,19 @@
 # DOING
 
-  - [ ] Give a closure to save the comment to a file
+  - [ ] Handle api request form the client
 
 # TODO
 
   - [ ] Response only to the GET method
   - [ ] Style the table in guestbook.html
-  - [ ] Rename startServer.js to index.js
-  - [ ] Rename serveFileContent.js staticFileHandler.js functionality of serveStaticFrom(dir)
-    - [ ] Add npm package path, mime-types
+
   
 # Done
 
+  - [x] Rename serveFileContent.js staticFileHandler.js functionality of serveStaticFrom(dir)
+    - [x] Add npm package path, mime-types
+  - [x] Rename startServer.js to index.js
+  - [x] Give a closure to save the comment to a file
   - [x] Give responsibility of generating page to guestbook class
     - [x] Save the comments in file
   - [x] Implement http module

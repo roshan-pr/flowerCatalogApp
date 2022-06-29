@@ -1,10 +1,11 @@
 const fs = require('fs');
 const { createRouter } = require('../server/router.js');
-const { staticFileFrom } = require('./serveFileContent.js');
+const { staticFileFrom } = require('./staticFileHandler.js');
 const { noFileHandler } = require('./noFileHandler.js');
 const { createGuestbookHandler } = require('./guestbookHandler.js');
 const { logRequestHandler } = require('./handlerLib.js');
-const { Guestbook } = require("./guestbook.js");
+const { Guestbook } = require('./guestbook.js');
+const { loadGuestbook } = require('./loadGuestbook.js');
 
 const createGuestbook = (htmlTemplate, content) => {
   const comments = content.length > 0 ? JSON.parse(content) : [];
@@ -20,7 +21,8 @@ const app = (staticFilePath) => {
 
   const handlers = [
     logRequestHandler,
-    createGuestbookHandler(guestbook),
+    loadGuestbook(guestbook, commentPath),
+    createGuestbookHandler,
     staticFileFrom(staticFilePath),
     noFileHandler];
 
