@@ -1,12 +1,18 @@
-**TODO**
+# DOING
+
+  - [ ] Restructure the files
+  
+# TODO
 
   - [ ] Give responsibility of generating page to guestbook class
     - [ ] Save the comments in file
 
-  - [ ] Style the table in guestbook.html
-    
 
-**Done**
+  - [ ] Style the table in guestbook.html
+  - [ ] Response only to the GET method
+  - [ ] Implement http module
+
+# Done
 
   - [x] Display comments from the user
     - [x] Display in same page
