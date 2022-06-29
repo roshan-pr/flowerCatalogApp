@@ -1,19 +1,21 @@
 # DOING
 
-  - [ ] Restructure the files
-  
+  - [ ] Remove comment handler
+    - [ ] Delegate handling adding comment to the guestbook handler
+
 # TODO
 
   - [ ] Give responsibility of generating page to guestbook class
     - [ ] Save the comments in file
 
-
   - [ ] Style the table in guestbook.html
   - [ ] Response only to the GET method
   - [ ] Implement http module
+  - [ ] Rename startServer.js to index.js
 
 # Done
 
+  - [x] Restructure the files
   - [x] Display comments from the user
     - [x] Display in same page
   - [x] Rename userProfile to guestbook.js
