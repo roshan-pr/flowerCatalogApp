@@ -1,9 +1,10 @@
 # DOING
 
-  - [ ] Response only to the GET method
+  - [ ] Give a closure to save the comment to a file
 
 # TODO
 
+  - [ ] Response only to the GET method
   - [ ] Style the table in guestbook.html
   - [ ] Rename startServer.js to index.js
   - [ ] Rename serveFileContent.js staticFileHandler.js functionality of serveStaticFrom(dir)

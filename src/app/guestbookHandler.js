@@ -15,11 +15,15 @@ const getGuestbookParams = ({ searchParams }) => {
   return params;
 };
 
-const commentHandler = (request, response) => {
-  const { name, comment } = getGuestbookParams(request.url);
-  const { guestbook } = request;
+const saveComments = (guestbook) => {
+  const content = JSON.stringify(guestbook.comments);
+  fs.writeFileSync('./data/comments.json', content, 'utf-8');
+};
+
+const commentHandler = ({ url, guestbook }, response) => {
+  const { name, comment } = getGuestbookParams(url);
   guestbook.addEntry(name, comment);
-  guestbook.saveComments();
+  saveComments(guestbook);
 
   response.statusCode = 302;
   response.setHeader('location', '/guest-book');

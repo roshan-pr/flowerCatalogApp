@@ -1,11 +1,13 @@
 const { createServer } = require('http');
 const { URL } = require('url');
 
+const logRequest = (request) =>
+  console.log(request.method, request.url.pathname);
+
 const startServer = (port, handler) => {
   const server = createServer((request, response) => {
-
     request.url = new URL(request.url, 'http://' + request.headers.host);
-    console.log(request.url);
+    logRequest(request);
     handler(request, response);
   });
 

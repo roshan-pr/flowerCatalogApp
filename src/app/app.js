@@ -5,21 +5,18 @@ const { noFileHandler } = require('./noFileHandler.js');
 const { createGuestbookHandler } = require('./guestbookHandler.js');
 const { Guestbook } = require("./guestbook.js");
 
-const createGuestbook = () => {
-  const htmlTemplate = fs.readFileSync('./rsc/guestbookTemplate.html', 'utf8');
-  const content = fs.readFileSync('./data/comments.json', 'utf8');
+const createGuestbook = (htmlTemplate, content) => {
   const comments = content.length > 0 ? JSON.parse(content) : [];
-
-  const guestbook = new Guestbook(comments, htmlTemplate);
-  guestbook.saveComments = function () {
-    const content = JSON.stringify(this.comments);
-    fs.writeFileSync('./data/comments.json', content, 'utf-8');
-  }
-  return guestbook;
+  return new Guestbook(comments, htmlTemplate);
 };
 
-const createHandler = (directory) => {
-  const guestbook = createGuestbook();
+const app = (directory) => {
+  const templatePath = './template/guestbookTemplate.html';
+  const commentPath = './data/comments.json';
+  const htmlTemplate = fs.readFileSync(templatePath, 'utf8');
+  const content = fs.readFileSync(commentPath, 'utf8');
+  const guestbook = createGuestbook(htmlTemplate, content);
+
   const handlers = [
     createGuestbookHandler(guestbook),
     staticFileFrom(directory),
@@ -28,4 +25,4 @@ const createHandler = (directory) => {
   return createRouter(handlers);
 };
 
-module.exports = { createHandler };
+module.exports = { app };
