@@ -9,9 +9,9 @@ const guestbookHandler = (request, response) => {
 
 const commentHandler = (req, res) => {
   const { url, guestbook } = req;
-  const { name, comment } = req.url.queryParams;
+  const { name, comment } = url.queryParams;
   guestbook.addEntry(name, comment);
-  req.saveComments(guestbook);
+  guestbook.saveComments(guestbook);
 
   res.statusCode = 302;
   res.setHeader('location', '/guest-book');

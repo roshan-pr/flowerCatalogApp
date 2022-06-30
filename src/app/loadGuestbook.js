@@ -1,14 +1,20 @@
 const fs = require('fs');
+const { Guestbook } = require('./guestbook.js');
 
-const loadGuestbook = (guestbook, commentPath) => (req, res) => {
-  const { pathname } = req.url;
-  if (pathname === '/add-comment' || pathname === '/guest-book' || pathname.startsWith('/api/')) {
-    req.guestbook = guestbook;
-    req.saveComments = (guestbook) => {
-      const content = JSON.stringify(guestbook.comments);
-      fs.writeFileSync(commentPath, content, 'utf-8');
-    };
-  }
-  return false;
+const createGuestbook = (commentPath, templatePath) =>
+  new Guestbook(commentPath, templatePath, fs.readFileSync, fs.writeFileSync);
+
+const loadGuestbook = (commentPath, templatePath) => {
+  const guestbook = createGuestbook(commentPath, templatePath);
+  guestbook.load();
+
+  return (req, res) => {
+    const { pathname } = req.url;
+    console.log(pathname);
+    if (['/add-comment', '/guest-book', '/api'].includes(pathname)) {
+      req.guestbook = guestbook;
+    }
+    return false;
+  };
 };
 exports.loadGuestbook = loadGuestbook;

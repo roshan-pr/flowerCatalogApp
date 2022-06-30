@@ -6,10 +6,10 @@
 
   - [ ] Response only to the GET method
   - [ ] Style the table in guestbook.html
-
   
 # Done
 
+  - [x] Delegate the functionality of loading and saving from file to Guestbook
   - [x] Rename serveFileContent.js staticFileHandler.js functionality of serveStaticFrom(dir)
     - [x] Add npm package path, mime-types
   - [x] Rename startServer.js to index.js
