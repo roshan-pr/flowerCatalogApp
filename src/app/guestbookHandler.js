@@ -7,23 +7,15 @@ const guestbookHandler = (request, response) => {
   return true;
 };
 
-const getGuestbookParams = ({ searchParams }) => {
-  const params = {};
-  for (const [query, value] of searchParams.entries()) {
-    params[query] = value;
-  }
-  return params;
-};
-
-const commentHandler = (request, response) => {
-  const { url, guestbook } = request;
-  const { name, comment } = getGuestbookParams(url);
+const commentHandler = (req, res) => {
+  const { url, guestbook } = req;
+  const { name, comment } = req.url.queryParams;
   guestbook.addEntry(name, comment);
-  request.saveComments(guestbook);
+  req.saveComments(guestbook);
 
-  response.statusCode = 302;
-  response.setHeader('location', '/guest-book');
-  response.end('');
+  res.statusCode = 302;
+  res.setHeader('location', '/guest-book');
+  res.end('');
   return true;
 };
 
