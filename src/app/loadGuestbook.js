@@ -10,8 +10,8 @@ const loadGuestbook = (commentPath, templatePath) => {
 
   return (req, res) => {
     const { pathname } = req.url;
-    if (['/add-comment', '/guest-book', '/api'].includes(pathname)) {
-      console.log(pathname);
+    const pathNames = ['/add-comment', '/guest-book', '/api'];
+    if (pathNames.includes(pathname)) {
       req.guestbook = guestbook;
     }
     return false;

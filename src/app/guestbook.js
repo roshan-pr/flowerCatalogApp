@@ -4,6 +4,16 @@ const td = data => `<td>${data}</td>`;
 
 const tableBody = body => `<tbody>${body}</tbody>`;
 
+const generateHtml = (comments, template) => {
+  const htmlBody = comments.map(commentInfo => {
+    const { name, comment, date } = commentInfo;
+    const rawHtml = [date, name, comment].map(data => td(data)).join('');
+    return tr(rawHtml);
+  }).join('');
+
+  return template.replace('__BODY__', htmlBody);
+};
+
 class Guestbook {
   #comments
   #commentFileName;
@@ -45,14 +55,8 @@ class Guestbook {
 
   toHtml() {
     const allComments = this.#comments;
-    const body = allComments.map(commentInfo => {
-      const { name, comment, date } = commentInfo;
-      const rawHtml = [date, name, comment].map(data => td(data)).join('');
-      return tr(rawHtml);
-    }).join('');
-
     const template = this.#readFile(this.#tempFileName, 'utf8');
-    return template.replace('__BODY__', tableBody(body));
+    return generateHtml(allComments, template);
   }
 }
 
