@@ -20,6 +20,10 @@ class Guestbook {
     this.#comments = [];
   }
 
+  get comments() {
+    return this.#comments;
+  }
+
   load() {
     const content = this.#readFile('./data/comments.json', 'utf8');
     const commentJson = content.length > 0 ? content : "[]";
@@ -33,6 +37,10 @@ class Guestbook {
 
   addEntry(name, comment) {
     this.#comments.unshift({ name, comment, date: new Date().toLocaleString() });
+  }
+
+  searchComments(name) {
+    return this.#comments.filter(comment => comment.name === name);
   }
 
   toHtml() {

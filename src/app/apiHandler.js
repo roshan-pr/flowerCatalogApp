@@ -1,10 +1,32 @@
-const apiHandler = (req, res) => {
-  const { pathname } = req.url;
-  if (pathname.startsWith('/api/')) {
-    res.statusCode = 200;
-    res.setHeader('content-type', 'application/json');
-    res.end(JSON.stringify(req.guestbook.comments));
-    return true;
-  }
+const apiHandler = ({ guestbook }, res) => {
+  res.statusCode = 200;
+  res.setHeader('content-type', 'application/json');
+  res.end(JSON.stringify(guestbook.comments));
+  return true;
 };
-exports.apiHandler = apiHandler;
+
+const serveNameHandler = ({ url, guestbook }, res) => {
+  const { name } = url.queryParams;
+  const comments = guestbook.searchComments(name);
+
+  res.statusCode = 200;
+  res.setHeader('content-type', 'application/json');
+  res.end(JSON.stringify(comments));
+  return true;
+};
+
+const apiRouter = (req, res) => {
+  const { pathname, queryParams } = req.url;
+
+  if (pathname === '/api' && queryParams.name) {
+    return serveNameHandler(req, res);
+  }
+
+  if (pathname === '/api') {
+    return apiHandler(req, res);
+  }
+
+  return false;
+};
+
+module.exports = { apiRouter };

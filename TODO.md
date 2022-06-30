@@ -1,6 +1,5 @@
 # DOING
 
-  - [ ] Handle api request form the client
 
 # TODO
 
@@ -9,6 +8,7 @@
   
 # Done
 
+  - [x] Handle api request form the client
   - [x] Delegate the functionality of loading and saving from file to Guestbook
   - [x] Rename serveFileContent.js staticFileHandler.js functionality of serveStaticFrom(dir)
     - [x] Add npm package path, mime-types
