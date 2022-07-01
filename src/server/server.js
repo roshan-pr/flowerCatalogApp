@@ -7,7 +7,8 @@ const startServer = (port, handler) => {
     handler(request, response);
   });
 
-  server.listen(port, () => console.log(`Server listening to ${port}`));
+  server.listen(port, () =>
+    console.log(`Server listening to ${server.address().port}`));
 };
 
 module.exports = { startServer };

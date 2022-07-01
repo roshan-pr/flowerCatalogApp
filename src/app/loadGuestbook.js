@@ -8,13 +8,13 @@ const loadGuestbook = (commentPath, templatePath) => {
   const guestbook = createGuestbook(commentPath, templatePath);
   guestbook.load();
 
-  return (req, res) => {
+  return (req, res, next) => {
     const { pathname } = req.url;
     const pathNames = ['/add-comment', '/guest-book', '/api'];
     if (pathNames.includes(pathname)) {
       req.guestbook = guestbook;
     }
-    return false;
+    next();
   };
 };
 exports.loadGuestbook = loadGuestbook;

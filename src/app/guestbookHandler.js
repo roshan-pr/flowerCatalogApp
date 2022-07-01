@@ -4,33 +4,32 @@ const guestbookHandler = (request, response) => {
   const htmlPage = request.guestbook.toHtml();
   response.setHeader('content-type', 'text/html');
   response.end(htmlPage);
-  return true;
 };
 
 const commentHandler = (req, res) => {
   const { url, guestbook } = req;
-  const { name, comment } = url.queryParams;
+  const { name, comment } = url.bodyParams;
   guestbook.addEntry(name, comment);
   guestbook.saveComments(guestbook);
 
   res.statusCode = 302;
   res.setHeader('location', '/guest-book');
   res.end('');
-  return true;
 };
 
-const createGuestbookHandler = (request, response) => {
-  const { pathname } = request.url;
+const createGuestbookHandler = (req, res, next) => {
+  const { pathname } = req.url;
 
-  if (pathname === '/guest-book' && request.method === 'GET') {
-    return guestbookHandler(request, response);
+  if (pathname === '/guest-book' && req.method === 'GET') {
+    guestbookHandler(req, res);
+    return;
   }
 
-  if (pathname === '/add-comment' && request.method === 'GET') {
-    return commentHandler(request, response);
+  if (pathname === '/add-comment' && req.method === 'POST') {
+    commentHandler(req, res);
+    return;
   }
-
-  return false;
+  next();
 };
 
 module.exports = { createGuestbookHandler };

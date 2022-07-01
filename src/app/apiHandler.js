@@ -15,7 +15,7 @@ const serveNameHandler = ({ url, guestbook }, res) => {
   return true;
 };
 
-const apiRouter = (req, res) => {
+const apiRouter = (req, res, next) => {
   const { pathname, queryParams } = req.url;
 
   if (pathname === '/api' && queryParams.name) {
@@ -26,7 +26,7 @@ const apiRouter = (req, res) => {
     return apiHandler(req, res);
   }
 
-  return false;
+  next();
 };
 
 module.exports = { apiRouter };

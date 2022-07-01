@@ -3,11 +3,17 @@
 
 # TODO
 
+  - [ ] Handle request of post method
   - [ ] Response only to the GET method
   - [ ] Style the table in guestbook.html
   
 # Done
 
+  - [x] Implement post for submission of form
+    - [x] Handle async process
+    - [x] Introduce parse body params handler
+    
+    - [x] Reconsider handlers contract takes next()
   - [x] Handle api request form the client
   - [x] Delegate the functionality of loading and saving from file to Guestbook
   - [x] Rename serveFileContent.js staticFileHandler.js functionality of serveStaticFrom(dir)

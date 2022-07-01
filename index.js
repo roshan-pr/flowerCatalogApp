@@ -1,11 +1,18 @@
 const { startServer } = require('./src/server/server.js');
 const { app } = require('./src/app/app.js');
 
-const server = (directory) => {
-  const port = 8000;
-  const templatePath = './template/guestbookTemplate.html';
-  const commentPath = './data/comments.json';
-  startServer(port, app(directory, commentPath, templatePath));
+const appConfig = (commentFilePath) => {
+  const commentPath = commentFilePath || './data/comments.json';
+  return {
+    templatePath: './template/guestbookTemplate.html',
+    staticFilePath: './public',
+    commentPath
+  }
 };
 
-server(...process.argv.slice(2));
+const main = (commentPath) => {
+  const config = appConfig(commentPath);
+  startServer(8000, app(config));
+};
+
+main(process.argv[2]);

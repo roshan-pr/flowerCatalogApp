@@ -5,18 +5,18 @@ const mime = require('mime-types');
 const staticFileFrom = (rootPath = './public') => {
   const fileContents = readFiles(rootPath);
 
-  return ({ url }, response) => {
+  return ({ url }, res, next) => {
     url.pathname = url.pathname === '/' ? '/homePage.html' : url.pathname;
 
     const fileName = rootPath + url.pathname;
     const content = fileContents[fileName];
     if (!content) {
-      return false;
+      return next();
     };
 
-    response.setHeader('content-type', mime.lookup(fileName));
-    response.end(content);
-    return true;
+    const contentType = mime.lookup(fileName) || 'text/plain'
+    res.setHeader('content-type', contentType);
+    res.end(content);
   };
 }
 

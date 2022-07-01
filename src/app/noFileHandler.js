@@ -1,8 +1,7 @@
-const noFileHandler = (request, response) => {
-  response.StatusCode = 404;
-  response.setHeader('Content-type', 'text/plain');
-  response.end('file not found');
-  return true;
+const noFileHandler = (req, res) => {
+  res.statusCode = 404;
+  res.setHeader('Content-type', 'text/plain');
+  res.end('file not found');
 };
 
 module.exports = { noFileHandler };

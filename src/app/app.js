@@ -2,16 +2,18 @@ const { createRouter } = require('../server/router.js');
 const { staticFileFrom } = require('./staticFileHandler.js');
 const { noFileHandler } = require('./noFileHandler.js');
 const { createGuestbookHandler } = require('./guestbookHandler.js');
-const { logRequestHandler } = require('./handlerLib.js');
+const { logRequest } = require('./lib.js');
 const { loadGuestbook } = require('./loadGuestbook.js');
 const { apiRouter } = require("./apiHandler.js");
 const { searchParamsHandler } = require("./searchParamsHandler.js");
+const { parseBodyParamsHandler } = require('./parseBodyParams.js');
 
-const app = (staticFilePath, commentPath, templatePath) => {
+const app = ({ commentPath, templatePath, staticFilePath }) => {
 
   const handlers = [
+    parseBodyParamsHandler,
     searchParamsHandler,
-    logRequestHandler,
+    logRequest,
     loadGuestbook(commentPath, templatePath),
     apiRouter,
     createGuestbookHandler,
