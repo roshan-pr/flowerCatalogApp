@@ -1,17 +1,11 @@
 const { parseParams } = require("./lib");
 
 const searchParamsHandler = (req, res, next) => {
-  const method = req.method.toLowerCase();
-  if (method !== 'get') {
-    return next();
+  const method = req.method.toUpperCase();
+  if (method === 'GET') {
+    req.searchParams = parseParams(req.url.searchParams);
   }
 
-  const { searchParams } = req.url;
-  const params = {};
-  for (const [query, value] of searchParams.entries()) {
-    params[query] = value;
-  }
-  req.url.queryParams = params;
   next();
 };
 

@@ -1,7 +1,10 @@
 # DOING
 
+  - [ ] Pull app.js outside app directory
 
 # TODO
+
+  - [ ] Read files asynchronously
 
   - [ ] Handle request of post method
   - [ ] Response only to the GET method
@@ -12,7 +15,6 @@
   - [x] Implement post for submission of form
     - [x] Handle async process
     - [x] Introduce parse body params handler
-    
     - [x] Reconsider handlers contract takes next()
   - [x] Handle api request form the client
   - [x] Delegate the functionality of loading and saving from file to Guestbook

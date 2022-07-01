@@ -1,6 +1,12 @@
 const { parseParams } = require('./lib.js');
 
-const bodyParamsHandler = (req, res, next) => {
+const parseBodyParams = (req, res, next) => {
+  const method = req.method.toUpperCase();
+  if (method !== 'POST') {
+    next();
+    return;
+  }
+
   req.setEncoding('utf8');
   let data = '';
   req.on('data', (chunk) => {
@@ -8,19 +14,9 @@ const bodyParamsHandler = (req, res, next) => {
   });
 
   req.on('end', () => {
-    req.url.bodyParams = parseParams(data);
+    req.bodyParams = parseParams(new URLSearchParams(data));
     next();
   });
 };
 
-const parseBodyParamsHandler = (req, res, next) => {
-  const method = req.method.toLowerCase();
-  if (method === 'post') {
-    bodyParamsHandler(req, res, next);
-  }
-  else {
-    next();
-  }
-};
-
-module.exports = { parseBodyParamsHandler };
+module.exports = { parseBodyParams };

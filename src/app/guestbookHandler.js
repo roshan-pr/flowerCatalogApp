@@ -1,35 +1,34 @@
 const fs = require('fs');
 
-const guestbookHandler = (request, response) => {
-  const htmlPage = request.guestbook.toHtml();
-  response.setHeader('content-type', 'text/html');
-  response.end(htmlPage);
+const createPage = (req, res) => {
+  const htmlPage = req.guestbook.toHtml();
+  res.setHeader('content-type', 'text/html');
+  res.end(htmlPage);
 };
 
-const commentHandler = (req, res) => {
-  const { url, guestbook } = req;
-  const { name, comment } = url.bodyParams;
+const saveComment = ({ bodyParams, guestbook }, res) => {
+  const { name, comment } = bodyParams
   guestbook.addEntry(name, comment);
-  guestbook.saveComments(guestbook);
+  guestbook.saveComments();
 
   res.statusCode = 302;
   res.setHeader('location', '/guest-book');
   res.end('');
 };
 
-const createGuestbookHandler = (req, res, next) => {
+const guestbookHandler = (req, res, next) => {
   const { pathname } = req.url;
 
   if (pathname === '/guest-book' && req.method === 'GET') {
-    guestbookHandler(req, res);
+    createPage(req, res);
     return;
   }
 
   if (pathname === '/add-comment' && req.method === 'POST') {
-    commentHandler(req, res);
+    saveComment(req, res);
     return;
   }
   next();
 };
 
-module.exports = { createGuestbookHandler };
+module.exports = { guestbookHandler };

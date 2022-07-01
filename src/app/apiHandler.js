@@ -1,25 +1,27 @@
+const { parseParams } = require("./lib");
+
 const apiHandler = ({ guestbook }, res) => {
   res.statusCode = 200;
   res.setHeader('content-type', 'application/json');
   res.end(JSON.stringify(guestbook.comments));
-  return true;
 };
 
-const serveNameHandler = ({ url, guestbook }, res) => {
-  const { name } = url.queryParams;
+const apiRequestHandler = ({ queryParams, guestbook }, res) => {
+  const { name } = queryParams;
   const comments = guestbook.searchComments(name);
 
   res.statusCode = 200;
   res.setHeader('content-type', 'application/json');
   res.end(JSON.stringify(comments));
-  return true;
 };
 
 const apiRouter = (req, res, next) => {
-  const { pathname, queryParams } = req.url;
+  const { pathname, searchParams } = req.url;
+  const queryParams = parseParams(searchParams);
 
   if (pathname === '/api' && queryParams.name) {
-    return serveNameHandler(req, res);
+    req.queryParams = queryParams;
+    return apiRequestHandler(req, res);
   }
 
   if (pathname === '/api') {
