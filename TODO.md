@@ -1,17 +1,19 @@
 # DOING
 
-  - [ ] Pull app.js outside app directory
+  - [ ] Handle cookies
+    - [ ] Introduce login page, authenticate before accessing guestbook
 
 # TODO
 
   - [ ] Read files asynchronously
 
-  - [ ] Handle request of post method
   - [ ] Response only to the GET method
   - [ ] Style the table in guestbook.html
   
 # Done
 
+  - [x] Pull app.js outside app directory
+  - [x] Handle request of post method
   - [x] Implement post for submission of form
     - [x] Handle async process
     - [x] Introduce parse body params handler

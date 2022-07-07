@@ -1,5 +1,5 @@
 const { startServer } = require('./src/server/server.js');
-const { app } = require('./src/app/app.js');
+const { app } = require('./src/app.js');
 
 const appConfig = (commentFilePath) => {
   const commentPath = commentFilePath || './data/comments.json';
