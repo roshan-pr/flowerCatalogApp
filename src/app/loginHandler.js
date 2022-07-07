@@ -79,7 +79,6 @@ const loginHandler = (sessions) => (req, res, next) => {
     const { username } = req.bodyParams;
     const session = createSession(username);
     sessions[session.sessionId] = session;
-    console.log(sessions);
 
     res.setHeader('Set-Cookie', `id=${session.sessionId}`);
     res.statusCode = 302;

@@ -4,14 +4,15 @@ const td = data => `<td>${data}</td>`;
 
 const tableBody = body => `<tbody>${body}</tbody>`;
 
-const generateHtml = (comments, template) => {
+const generateHtml = (username, comments, template) => {
   const htmlBody = comments.map(commentInfo => {
     const { name, comment, date } = commentInfo;
     const rawHtml = [date, name, comment].map(data => td(data)).join('');
     return tr(rawHtml);
   }).join('');
 
-  return template.replace('__BODY__', htmlBody);
+  template = template.replace('__BODY__', htmlBody);
+  return template.replace('__USERNAME__', username);
 };
 
 class Guestbook {
@@ -53,10 +54,10 @@ class Guestbook {
     return this.#comments.filter(comment => comment.name === name);
   }
 
-  toHtml() {
+  toHtml(username) {
     const allComments = this.#comments;
     const template = this.#readFile(this.#tempFileName, 'utf8');
-    return generateHtml(allComments, template);
+    return generateHtml(username, allComments, template);
   }
 }
 

@@ -1,13 +1,15 @@
 const fs = require('fs');
 
 const createPage = (req, res) => {
-  const htmlPage = req.guestbook.toHtml();
+  const { username } = req.session;
+  const htmlPage = req.guestbook.toHtml(username);
   res.setHeader('content-type', 'text/html');
   res.end(htmlPage);
 };
 
-const saveComment = ({ bodyParams, guestbook }, res) => {
-  const { name, comment } = bodyParams
+const saveComment = ({ bodyParams, guestbook, session }, res) => {
+  const { comment } = bodyParams
+  const name = session.username;
   guestbook.addEntry(name, comment);
   guestbook.saveComments();
 
