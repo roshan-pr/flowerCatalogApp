@@ -6,7 +6,7 @@ const staticFileFrom = (rootPath = './public') => {
   const fileContents = readFiles(rootPath);
 
   return ({ url }, res, next) => {
-    url.pathname = url.pathname === '/' ? '/homePage.html' : url.pathname;
+    url.pathname = url.pathname === '/' ? '/index.html' : url.pathname;
 
     const fileName = rootPath + url.pathname;
     const content = fileContents[fileName];

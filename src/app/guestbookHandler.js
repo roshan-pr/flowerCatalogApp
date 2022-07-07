@@ -19,6 +19,13 @@ const saveComment = ({ bodyParams, guestbook }, res) => {
 const guestbookHandler = (req, res, next) => {
   const { pathname } = req.url;
 
+  if (!req.cookies.id && pathname === '/guest-book') {
+    res.statusCode = 302;
+    res.setHeader('location', '/login');
+    res.end();
+    return;
+  }
+
   if (pathname === '/guest-book' && req.method === 'GET') {
     createPage(req, res);
     return;

@@ -7,6 +7,9 @@ const { loadGuestbook } = require('./app/loadGuestbook.js');
 const { apiRouter } = require("./app/apiHandler.js");
 const { searchParamsHandler } = require("./app/searchParamsHandler.js");
 const { parseBodyParams } = require('./app/parseBodyParams.js');
+const { loginHandler, injectCookies, injectSession } = require("./app/loginHandler.js");
+
+const sessions = {};
 
 const app = ({ commentPath, templatePath, staticFilePath }) => {
 
@@ -17,6 +20,9 @@ const app = ({ commentPath, templatePath, staticFilePath }) => {
     logRequestHandler,
     parseBodyParams,
     searchParamsHandler,
+    injectCookies,
+    injectSession(sessions),
+    loginHandler(sessions),
     guestbookLoader,
     apiRouter,
     guestbookHandler,

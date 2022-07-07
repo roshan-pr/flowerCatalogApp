@@ -1,7 +1,5 @@
 # DOING
 
-  - [ ] Handle cookies
-    - [ ] Introduce login page, authenticate before accessing guestbook
 
 # TODO
 
@@ -12,6 +10,8 @@
   
 # Done
 
+  - [x] Handle cookies
+    - [x] Introduce login page, authenticate before accessing guestbook
   - [x] Pull app.js outside app directory
   - [x] Handle request of post method
   - [x] Implement post for submission of form
