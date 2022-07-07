@@ -1,0 +1,13 @@
+div {
+  margin-top: 20px;
+}
+
+td {
+  width: 200px;
+  border: 2px solid aliceblue;
+  border-collapse: collapse;
+}
+
+table>tbody>tr:nth-child(even) {
+  background-color: antiquewhite;
+}

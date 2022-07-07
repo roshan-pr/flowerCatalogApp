@@ -1,15 +1,16 @@
 # DOING
 
+  - [ ] Logout the user
 
 # TODO
 
   - [ ] Read files asynchronously
 
   - [ ] Response only to the GET method
-  - [ ] Style the table in guestbook.html
   
 # Done
 
+  - [x] Style the table in guestbook.html
   - [x] Handle cookies
     - [x] Introduce login page, authenticate before accessing guestbook
   - [x] Pull app.js outside app directory
