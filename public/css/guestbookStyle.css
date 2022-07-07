@@ -1,3 +1,12 @@
+body {
+  width: 960px;
+  margin: auto;
+}
+
+header>h2 {
+  margin: 0px;
+}
+
 div {
   margin-top: 20px;
 }
@@ -10,4 +19,9 @@ td {
 
 table>tbody>tr:nth-child(even) {
   background-color: antiquewhite;
+}
+
+.logout>a {
+  text-decoration: none;
+  float: right;
 }

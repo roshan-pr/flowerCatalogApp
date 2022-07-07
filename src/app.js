@@ -11,6 +11,20 @@ const { loginHandler, injectCookies, injectSession } = require("./app/loginHandl
 
 const sessions = {};
 
+const logoutHandler = (req, res, next) => {
+  if (req.url.pathname === '/logout') {
+    const { id } = req.cookies;
+    res.statusCode = 302;
+    res.setHeader('location', '/');
+    res.setHeader('set-cookie', `id=${id}; Max-Age=0`);
+    res.end();
+    delete sessions[id];
+    return;
+  }
+  next();
+};
+
+
 const app = ({ commentPath, templatePath, staticFilePath }) => {
 
   const guestbookLoader = loadGuestbook(commentPath, templatePath);
@@ -23,6 +37,7 @@ const app = ({ commentPath, templatePath, staticFilePath }) => {
     injectCookies,
     injectSession(sessions),
     loginHandler(sessions),
+    logoutHandler,
     guestbookLoader,
     apiRouter,
     guestbookHandler,

@@ -1,6 +1,7 @@
 # DOING
 
-  - [ ] Logout the user
+  - [ ] Pull out the logoutHandler
+  - [ ] Remove input textbox in guestbook
 
 # TODO
 
@@ -10,6 +11,7 @@
   
 # Done
 
+  - [x] Logout the user
   - [x] Style the table in guestbook.html
   - [x] Handle cookies
     - [x] Introduce login page, authenticate before accessing guestbook

@@ -45,21 +45,20 @@ const injectCookies = (req, res, next) => {
   next();
 };
 
-const injectSession = (sessions) =>
-  (req, res, next) => {
-    const { cookies } = req.cookies;
-    if (!cookies) {
-      next();
-      return;
-    }
-    req.sessions = sessions[cookies.id];
-    req.username = sessions[cookies.id].username
+const injectSession = (sessions) => (req, res, next) => {
+  const { cookies } = req;
+  if (!cookies) {
     next();
-  };
+    return;
+  }
+  const { id } = req.cookies;
+  req.session = sessions[id];
+  next();
+};
 
 const createSession = (username) => {
   const date = new Date();
-  return { id: date.getTime(), username }
+  return { sessionId: date.getTime(), username }
 };
 
 const loginHandler = (sessions) => (req, res, next) => {
@@ -80,8 +79,9 @@ const loginHandler = (sessions) => (req, res, next) => {
     const { username } = req.bodyParams;
     const session = createSession(username);
     sessions[session.sessionId] = session;
+    console.log(sessions);
 
-    res.setHeader('Set-Cookie', `id=${session.id}`);
+    res.setHeader('Set-Cookie', `id=${session.sessionId}`);
     res.statusCode = 302;
     res.setHeader('location', '/guest-book');
     res.end();
