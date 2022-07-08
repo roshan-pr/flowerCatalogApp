@@ -1,7 +1,6 @@
 # DOING
 
   - [ ] Pull out the sign up handler
-  - [ ] Fix the login for wrong user
 
 
 # TODO
@@ -11,6 +10,7 @@
   
 # Done
 
+  - [x] Fix the login for wrong user
   - [x] Pull out the logoutHandler
   - [x] Add password for the login
   - [x] Response only to the GET method

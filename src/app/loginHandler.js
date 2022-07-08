@@ -5,7 +5,7 @@ const createSession = (username) => {
   return { sessionId: date.getTime(), username }
 };
 
-const isUserValid = ({ users, bodyParams: { username, password } }) => {
+const isValidUser = ({ users, bodyParams: { username, password } }) => {
   if (!users[username]) {
     return false;
   }
@@ -24,6 +24,12 @@ const redirectToGuestbook = (res) => {
   res.end();
 };
 
+const redirectToSignup = (res) => {
+  res.statusCode = 302;
+  res.setHeader('location', '/signup');
+  res.end();
+};
+
 const loginHandler = (sessions, loginFileName) => (req, res, next) => {
   const { method, url: { pathname } } = req;
 
@@ -32,7 +38,11 @@ const loginHandler = (sessions, loginFileName) => (req, res, next) => {
     return;
   }
 
-  if (pathname === '/login' && method === 'POST' && isUserValid(req)) {
+  if (pathname === '/login' && method === 'POST') {
+    if (!isValidUser(req)) {
+      redirectToSignup(res);
+      return;
+    }
     const { username } = req.bodyParams;
     const session = createSession(username);
     sessions[session.sessionId] = session;
