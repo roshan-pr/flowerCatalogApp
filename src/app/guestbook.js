@@ -17,15 +17,14 @@ const generateHtml = (username, comments, template) => {
 
 class Guestbook {
   #comments
-  #commentFileName;
-  #tempFileName;
+  #commentsFilePath;
+  #guestbookFilePath;
   #readFile
   #writeFile
 
-  constructor(commentFileName, tempFileName, readFile, writeFile) {
-
-    this.#commentFileName = commentFileName;
-    this.#tempFileName = tempFileName;
+  constructor(commentsFilePath, guestbookFilePath, readFile, writeFile) {
+    this.#commentsFilePath = commentsFilePath;
+    this.#guestbookFilePath = guestbookFilePath;
     this.#readFile = readFile;
     this.#writeFile = writeFile;
     this.#comments = [];
@@ -36,14 +35,14 @@ class Guestbook {
   }
 
   load() {
-    const content = this.#readFile('./data/comments.json', 'utf8');
+    const content = this.#readFile(this.#commentsFilePath, 'utf8');
     const commentJson = content.length > 0 ? content : "[]";
     this.#comments = JSON.parse(commentJson);
   }
 
   saveComments() {
     const allComments = JSON.stringify(this.#comments);
-    this.#writeFile(this.#commentFileName, allComments, 'utf8');
+    this.#writeFile(this.#commentsFilePath, allComments, 'utf8');
   }
 
   addEntry(name, comment) {
@@ -56,7 +55,7 @@ class Guestbook {
 
   toHtml(username) {
     const allComments = this.#comments;
-    const template = this.#readFile(this.#tempFileName, 'utf8');
+    const template = this.#readFile(this.#guestbookFilePath, 'utf8');
     return generateHtml(username, allComments, template);
   }
 }

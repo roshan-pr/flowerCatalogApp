@@ -1,31 +1,4 @@
-const getLoginPage = () => `
-<html>
-
-<head>
-  <title>Login page</title>
-</head>
-
-<body>
-  <div class="page-wrapper">
-    <header>
-      <h2>Login</h2>
-    </header>
-
-    <form action="login" method="POST">
-      <div>
-        <label for="name">Username</label>
-        <input type="text" name="username" id="name" placeholder="Enter name" required>
-      </div>
-
-      <div class="login-button">
-        <input type="submit" value="Login">
-      </div>
-
-    </form>
-  </div>
-</body>
-
-</html>`;
+const { readFile } = require('./readFileContent');
 
 const parseCookies = (cookieString) => {
   const cookies = {};
@@ -61,29 +34,40 @@ const createSession = (username) => {
   return { sessionId: date.getTime(), username }
 };
 
-const loginHandler = (sessions) => (req, res, next) => {
+const isUserValid = ({ users, bodyParams: { username, password } }) => {
+  if (!users[username]) {
+    return false;
+  }
+  return users[username].password === password;
+};
+
+const showLoginPage = (res, loginFileName) => {
+  const loginTemplate = readFile(loginFileName);
+  res.setHeader('content-type', 'text/html');
+  res.end(loginTemplate);
+};
+
+const redirectToGuestbook = (res) => {
+  res.statusCode = 302;
+  res.setHeader('location', '/guest-book');
+  res.end();
+};
+
+const loginHandler = (sessions, loginFileName) => (req, res, next) => {
   const { method, url: { pathname } } = req;
-  if (pathname !== '/login') {
-    next();
+
+  if (pathname === '/login' && method === 'GET') {
+    showLoginPage(res, loginFileName);
     return;
   }
 
-  if (method === 'GET') {
-    const loginTemplate = getLoginPage();
-    res.setHeader('content-type', 'text/html');
-    res.end(loginTemplate);
-    return;
-  }
-
-  if (method === 'POST') {
+  if (pathname === '/login' && method === 'POST' && isUserValid(req)) {
     const { username } = req.bodyParams;
     const session = createSession(username);
     sessions[session.sessionId] = session;
-
     res.setHeader('Set-Cookie', `id=${session.sessionId}`);
-    res.statusCode = 302;
-    res.setHeader('location', '/guest-book');
-    res.end();
+
+    redirectToGuestbook(res);
     return;
   }
 
@@ -91,3 +75,4 @@ const loginHandler = (sessions) => (req, res, next) => {
 };
 
 module.exports = { loginHandler, injectCookies, injectSession };
+

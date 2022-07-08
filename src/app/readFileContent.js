@@ -20,4 +20,4 @@ const readFiles = (directory) => {
   return fileContents;
 };
 
-module.exports = { readFiles };
+module.exports = { readFiles, readFile };

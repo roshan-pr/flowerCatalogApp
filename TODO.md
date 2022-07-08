@@ -1,16 +1,19 @@
 # DOING
 
-  - [ ] Add password for the login
-  - [ ] Pull out the logoutHandler
+  - [ ] Pull out the sign up handler
+  - [ ] Fix the login for wrong user
+
 
 # TODO
 
   - [ ] Read files asynchronously
 
-  - [ ] Response only to the GET method
   
 # Done
 
+  - [x] Pull out the logoutHandler
+  - [x] Add password for the login
+  - [x] Response only to the GET method
   - [x] Remove input textbox in guestbook, indicate from credentials
   - [x] Logout the user
   - [x] Style the table in guestbook.html
