@@ -18,7 +18,6 @@ const { staticFileFrom } = require('./app/staticFileHandler.js');
 const { noFileHandler } = require('./app/noFileHandler.js');
 
 const app = ({ commentsFilePath, templatePath, staticFilePath }) => {
-  const users = { 'a': { username: 'a', password: 'a' } };
   const sessions = {};
 
   const loginPageTemplate = './template/loginTemplate.html';
@@ -28,7 +27,7 @@ const app = ({ commentsFilePath, templatePath, staticFilePath }) => {
     searchParamsHandler,
     injectCookies,
     injectSession(sessions),
-    injectUsers(users),
+    injectUsers(),
     signupHandler,
     loginHandler(sessions, loginPageTemplate),
     logoutHandler(sessions),

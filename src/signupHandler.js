@@ -16,6 +16,7 @@ const signupHandler = (req, res, next) => {
   if (req.method === 'POST') {
     const { username, password } = req.bodyParams;
     req.users[username] = { username, password };
+    req.persistUsers(JSON.stringify(req.users));
 
     res.statusCode = 302;
     res.setHeader('location', '/login');

@@ -29,7 +29,7 @@ const updateTable = xhr => {
   });
 };
 
-const xhrRequest = (method, url, callback, body = '') => {
+const performXHR = (method, url, callback, body = '') => {
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
     if (xhr.status === 200 || xhr.status === 201) {
@@ -42,7 +42,7 @@ const xhrRequest = (method, url, callback, body = '') => {
 
 const requestForComments = () => {
   const commentsUrl = '/api/comments';
-  xhrRequest('GET', commentsUrl, updateTable);
+  performXHR('GET', commentsUrl, updateTable);
 };
 
 const sendComment = () => {
@@ -50,7 +50,7 @@ const sendComment = () => {
   const formData = new FormData(form);
   const body = new URLSearchParams(formData);
 
-  xhrRequest('POST', '/add-comment', requestForComments, body.toString());
+  performXHR('POST', '/add-comment', requestForComments, body.toString());
 
   form.reset();
 };

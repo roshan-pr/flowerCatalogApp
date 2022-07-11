@@ -1,5 +1,7 @@
 # DOING
 
+  - [ ] Persist the credential with hashed password
+
 
 # TODO
 
@@ -7,6 +9,7 @@
   
 # Done
 
+  - [x] Persist the credential of user
   - [x] Refactor the guestbook 
     - [x] Use xhr request for updating the page
   - [x] Pull out the sign up handler
