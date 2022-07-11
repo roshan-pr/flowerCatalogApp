@@ -51,6 +51,7 @@ const sendComment = () => {
   const formData = new FormData(form);
   const body = new URLSearchParams(formData);
   xhr.send(body.toString());
+  form.reset();
 };
 
 const main = () => {
