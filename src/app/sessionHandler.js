@@ -18,8 +18,8 @@ const injectSession = (sessions) => (req, res, next) => {
 
 const injectUsers = () => {
   const filename = './data/users.json';
-  const users = readFile(filename).toString() || {};
-  console.log(users);
+  const userDetails = readFile(filename).toString();
+  const users = JSON.parse(userDetails) || {};
   return (req, res, next) => {
     req.users = users;
     req.persistUsers = (usersData) => writeFile(filename, usersData);
