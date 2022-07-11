@@ -18,6 +18,7 @@ const createCommentElement = (commentInfo) => {
 };
 
 const updateTable = xhr => {
+  console.log('Updating table');
   const comments = JSON.parse(xhr.response);
 
   const tBodyElement = document.querySelector('tbody');
@@ -28,34 +29,34 @@ const updateTable = xhr => {
   });
 };
 
-const requestForComments = commentsUrl => {
+const xhrRequest = (method, url, callback, body = '') => {
   const xhr = new XMLHttpRequest();
-  xhr.onload = () => updateTable(xhr);
+  xhr.onload = () => {
+    if (xhr.status === 200 || xhr.status === 201) {
+      callback(xhr);
+    };
+  };
+  xhr.open(method, url);
+  xhr.send(body);
+};
 
-  xhr.open('GET', commentsUrl);
-  xhr.send();
+const requestForComments = () => {
+  const commentsUrl = '/api/comments';
+  xhrRequest('GET', commentsUrl, updateTable);
 };
 
 const sendComment = () => {
-  const xhr = new XMLHttpRequest();
-
-  xhr.onload = event => {
-    if (xhr.status === 201) {
-      const commentsUrl = '/api/comments';
-      requestForComments(commentsUrl);
-    };
-  };
-
-  xhr.open('POST', '/add-comment');
   const form = document.querySelector('form');
   const formData = new FormData(form);
   const body = new URLSearchParams(formData);
-  xhr.send(body.toString());
+
+  xhrRequest('POST', '/add-comment', requestForComments, body.toString());
+
   form.reset();
 };
 
 const main = () => {
-  document.getElementById('submitBtn').onclick = sendComment;
+  document.querySelector('.submit').onclick = sendComment;
 };
 
 window.onload = main;
