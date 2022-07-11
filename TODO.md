@@ -1,15 +1,15 @@
 # DOING
 
-  - [ ] Pull out the sign up handler
-
 
 # TODO
 
   - [ ] Read files asynchronously
-
   
 # Done
 
+  - [x] Refactor the guestbook 
+    - [x] Use xhr request for updating the page
+  - [x] Pull out the sign up handler
   - [x] Fix the login for wrong user
   - [x] Pull out the logoutHandler
   - [x] Add password for the login

@@ -4,6 +4,7 @@
   <title>Guest Book</title>
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/guestbookStyle.css">
+  <script src="/script/script.js"></script>
 </head>
 
 <body>
@@ -14,28 +15,28 @@
     </header>
 
     <h3>Leave a comment</h3>
-    <form action="add-comment" method="POST">
+    <form id="form" action="add-comment" method="POST">
       <label for="username">Name:__USERNAME__</label>
       <div>
         <label for="comment">Comment</label>
         <textarea name="comment" id="comment" cols="20" rows="5" required></textarea>
       </div>
-
-      <div class="submit">
-        <input type="submit" value="Submit">
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Name</th>
-            <th>Command</th>
-          </tr>
-        </thead>
-        __BODY__
-      </table>
     </form>
+
+    <div class="submit" id="submitBtn">
+      <button>Submit</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Command</th>
+        </tr>
+      </thead>
+      __BODY__
+    </table>
   </div>
 </body>
 

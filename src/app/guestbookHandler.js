@@ -13,18 +13,21 @@ const saveComment = ({ bodyParams, guestbook, session }, res) => {
   guestbook.addEntry(name, comment);
   guestbook.saveComments();
 
-  res.statusCode = 302;
-  res.setHeader('location', '/guest-book');
+  res.statusCode = 201;
   res.end('');
+};
+
+const redirectToLogin = (req, res) => {
+  res.statusCode = 302;
+  res.setHeader('location', '/login');
+  res.end();
 };
 
 const guestbookHandler = (req, res, next) => {
   const { pathname } = req.url;
 
   if (!req.session && pathname === '/guest-book') {
-    res.statusCode = 302;
-    res.setHeader('location', '/login');
-    res.end();
+    redirectToLogin(req, res);
     return;
   }
 

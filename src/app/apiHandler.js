@@ -24,7 +24,7 @@ const apiRouter = (req, res, next) => {
     return apiRequestHandler(req, res);
   }
 
-  if (pathname === '/api') {
+  if (pathname === '/api/comments') {
     return apiHandler(req, res);
   }
 
