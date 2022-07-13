@@ -3,7 +3,7 @@
   - [ ] Test the app with supertest
     - [x] noFileHandler
     - [x] staticFileHandler
-    - [ ] loginHandler
+    - [x] loginHandler
 
 # TODO
   - [ ] Provide session as dependency to create the app
