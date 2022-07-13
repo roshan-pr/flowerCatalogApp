@@ -1,14 +1,15 @@
 # DOING
 
-  - [ ] Persist the credential with hashed password
+  - [ ] Read files asynchronously
 
 
 # TODO
 
-  - [ ] Read files asynchronously
+  - [ ] Persist the credential with hashed password
   
 # Done
 
+  - [x] Test the app with supertest
   - [x] Persist the credential of user
   - [x] Refactor the guestbook 
     - [x] Use xhr request for updating the page
