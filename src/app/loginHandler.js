@@ -12,10 +12,11 @@ const isValidUser = ({ users, bodyParams: { username, password } }) => {
   return users[username].password === password;
 };
 
-const showLoginPage = (res, loginFileName) => {
+const serveLoginPage = (res, loginFileName) => {
   const loginTemplate = readFile(loginFileName);
   res.setHeader('content-type', 'text/html');
   res.end(loginTemplate);
+  return true;
 };
 
 const redirectToGuestbook = (res) => {
@@ -28,13 +29,18 @@ const redirectToSignup = (res) => {
   res.statusCode = 302;
   res.setHeader('location', '/signup');
   res.end();
+  return true;
 };
 
 const loginHandler = (sessions, loginFileName) => (req, res, next) => {
   const { method, url: { pathname } } = req;
 
   if (pathname === '/login' && method === 'GET') {
-    showLoginPage(res, loginFileName);
+    if (req.session) {
+      redirectToGuestbook(res);
+      return;
+    }
+    serveLoginPage(res, loginFileName);
     return;
   }
 

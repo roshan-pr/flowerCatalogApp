@@ -1,18 +1,20 @@
 const request = require('supertest');
-const { app } = require('../src/app.js');
+const { createApp } = require('../src/app.js');
 
-const identity = x => x;
+const noOperation = () => { };
+const logger = (req) => console.log(req.method, req.url.pathname);;
 
 const appSetup = {
   commentsFilePath: './test/data/comments.json',
+  usersFilePath: './data/users.json',
   templatePath: './test/data/guestbookTemplate.html',
   staticFilePath: './public',
 };
 
 describe('GET /unknown', () => {
   it('Should serve 404 with no file found as body', (done) => {
-    const appRoute = app(appSetup, identity);
-    request(appRoute)
+    const app = createApp(appSetup, noOperation);
+    request(app)
       .get('/unknown')
       .expect('content-type', 'text/plain')
       .expect('file not found')
@@ -20,33 +22,10 @@ describe('GET /unknown', () => {
   });
 });
 
-describe('GET /login', () => {
-  it('Should serve the login page', (done) => {
-    const appRoute = app(appSetup, identity);
-    request(appRoute)
-      .get('/login')
-      .expect('content-type', 'text/html')
-      .expect('content-length', '793')
-      .expect(/Login/)
-      .expect(200, done)
-  });
-});
-
-describe('POST /login', () => {
-  it('Should login valid user', (done) => {
-    const appRoute = app(appSetup, identity);
-    request(appRoute)
-      .post('/login')
-      .send('username=a&password=a')
-      .expect('location', '/guest-book')
-      .expect(302, done)
-  });
-});
-
 describe('staticHandler', () => {
   it('Should serve the homepage for GET /', (done) => {
-    const appRoute = app(appSetup, identity);
-    request(appRoute)
+    const app = createApp(appSetup, noOperation);
+    request(app)
       .get('/')
       .expect(200, done)
       .expect('content-type', 'text/html')
@@ -55,8 +34,8 @@ describe('staticHandler', () => {
   });
 
   it('Should serve the styles for GET /style.css', (done) => {
-    const appRoute = app(appSetup, identity);
-    request(appRoute)
+    const app = createApp(appSetup, noOperation);
+    request(app)
       .get('/css/guestbookStyle.css')
       .expect(200, done)
       .expect('content-type', 'text/css')
@@ -65,12 +44,62 @@ describe('staticHandler', () => {
   });
 
   it('Should serve the script.js for GET /script.js', (done) => {
-    const appRoute = app(appSetup, identity);
-    request(appRoute)
+    const app = createApp(appSetup, noOperation);
+    request(app)
       .get('/script/guestbookScript.js')
       .expect(200, done)
       .expect('content-type', 'application/javascript')
       .expect('content-length', '1627')
       .expect(/window.onload = main;/)
   });
+});
+
+describe('GET /login', () => {
+  let app;
+  beforeEach(() => {
+    const sessions = { '123': { sessionId: 123, username: 'abc' } };
+    app = createApp(appSetup, noOperation, sessions);
+  });
+
+  it('Should serve guestbook when user already logged in', (done) => {
+    request(app)
+      .get('/login')
+      .set('Cookie', ['id=123']) // Already logged in and received cookie
+      .expect('location', '/guest-book')
+      .expect(302, done)
+  });
+
+  it('Should serve login page', (done) => {
+    request(app)
+      .get('/login')
+      .expect('content-type', 'text/html')
+      .expect('content-length', '793')
+      .expect(/Login page/)
+      .expect(200, done)
+  });
+});
+
+describe('POST /login', () => {
+  let app;
+  beforeEach(() => {
+    const sessions = { '123': { sessionId: 123, username: 'abc' } };
+    app = createApp(appSetup, noOperation, sessions);
+  });
+
+  it('Should direct to guestbook for valid user', (done) => {
+    request(app)
+      .post('/login')
+      .send('username=a&password=a')
+      .expect('location', '/guest-book')
+      .expect(302, done)
+  });
+
+  it('Should direct to signup for invalid user', (done) => {
+    request(app)
+      .post('/login')
+      .send('username=unknown&password=unknown')
+      .expect('location', '/signup')
+      .expect(302, done)
+  });
+
 });

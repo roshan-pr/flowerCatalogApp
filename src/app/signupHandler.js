@@ -8,9 +8,9 @@ const persistUserDetails = (request) => {
 };
 
 const loadSignupPage = (response) => {
-  const signupTemplate = readFile('template/signupTemplate.html');
+  const signupPage = readFile('template/signupTemplate.html');
   response.setHeader('content-type', 'text/html');
-  response.end(signupTemplate);
+  response.end(signupPage);
   return true;
 };
 

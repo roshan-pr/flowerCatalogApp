@@ -4,6 +4,7 @@
     - [x] noFileHandler
     - [x] staticFileHandler
     - [x] loginHandler
+    - [ ] signUpHandler
 
 # TODO
   - [ ] Provide session as dependency to create the app

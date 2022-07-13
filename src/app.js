@@ -22,9 +22,9 @@ const injectUrlObject = (req, res, next) => {
   next();
 };
 
-const app = (config, logger) => {
-  const { commentsFilePath, templatePath, staticFilePath } = config;
-  const sessions = {};
+const createApp = (config, logger, sessions = {}) => {
+  const { commentsFilePath, usersFilePath,
+    templatePath, staticFilePath } = config;
 
   const loginPageTemplate = './template/loginTemplate.html';
   const handlers = [
@@ -34,7 +34,7 @@ const app = (config, logger) => {
     logRequestHandler(logger),
     injectCookies,
     injectSession(sessions),
-    injectUsers(),
+    injectUsers(usersFilePath),
 
     signupHandler,
     loginHandler(sessions, loginPageTemplate),
@@ -48,4 +48,4 @@ const app = (config, logger) => {
   return createRouter(handlers);
 };
 
-module.exports = { app };
+module.exports = { createApp };

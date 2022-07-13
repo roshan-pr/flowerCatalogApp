@@ -16,9 +16,8 @@ const injectSession = (sessions) => (req, res, next) => {
   next();
 };
 
-const injectUsers = () => {
-  const filename = './data/users.json';
-  const userDetails = readFile(filename).toString();
+const injectUsers = (usersFilePath) => {
+  const userDetails = readFile(usersFilePath).toString();
   const users = JSON.parse(userDetails) || {};
   return (req, res, next) => {
     req.users = users;
