@@ -1,4 +1,4 @@
-const { readFile } = require('./app/readFileContent.js');
+const { readFile } = require('./readFileContent.js');
 
 const persistUserDetails = (request) => {
   const { username, password } = request.bodyParams;

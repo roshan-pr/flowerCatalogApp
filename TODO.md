@@ -1,13 +1,20 @@
 # DOING
 
+  - [ ] Provide the logger to the app 
+    - [ ] Through test provide the no operation logger to call next handler
+
   - [ ] Test the app with supertest
     - [x] noFileHandler
-    - [ ] staticFileHandler
+    - [x] staticFileHandler
+    - [ ] loginHandler
 
 # TODO
 
-  - [ ] Put the login and sign up page in public and redirect to the page
   - [ ] Persist the credential with hashed password
+
+# MAYBE
+
+  - [ ] Put the login and sign up page in public and redirect to the page
   
 # Done
 

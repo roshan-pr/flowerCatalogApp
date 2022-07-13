@@ -6,7 +6,7 @@ const { parseBodyParams } = require('./app/parseBodyParams.js');
 const { injectCookies } = require('./app/cookieHandler.js');
 const { injectSession, injectUsers } = require('./app/sessionHandler.js');
 
-const { signupHandler } = require("./signupHandler.js");
+const { signupHandler } = require("./app/signupHandler.js");
 const { loginHandler } = require("./app/loginHandler.js");
 const { logoutHandler } = require("./app/logoutHandler.js");
 
@@ -17,11 +17,17 @@ const { staticFileFrom } = require('./app/staticFileHandler.js');
 
 const { noFileHandler } = require('./app/noFileHandler.js');
 
+const injectUrlObject = (req, res, next) => {
+  req.url = new URL(req.url, 'http://' + req.headers.host);
+  next();
+};
+
 const app = ({ commentsFilePath, templatePath, staticFilePath }) => {
   const sessions = {};
 
   const loginPageTemplate = './template/loginTemplate.html';
   const handlers = [
+    injectUrlObject,
     parseBodyParams,
     searchParamsHandler,
     logRequestHandler,
