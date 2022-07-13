@@ -22,7 +22,8 @@ const injectUrlObject = (req, res, next) => {
   next();
 };
 
-const app = ({ commentsFilePath, templatePath, staticFilePath }) => {
+const app = (config, logger) => {
+  const { commentsFilePath, templatePath, staticFilePath } = config;
   const sessions = {};
 
   const loginPageTemplate = './template/loginTemplate.html';
@@ -30,7 +31,7 @@ const app = ({ commentsFilePath, templatePath, staticFilePath }) => {
     injectUrlObject,
     parseBodyParams,
     searchParamsHandler,
-    logRequestHandler,
+    logRequestHandler(logger),
     injectCookies,
     injectSession(sessions),
     injectUsers(),

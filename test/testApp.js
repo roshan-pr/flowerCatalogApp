@@ -1,6 +1,8 @@
 const request = require('supertest');
 const { app } = require('../src/app.js');
 
+const identity = x => x;
+
 const getFilePaths = () => {
   const commentsFilePath = './test/data/comments.json';
   const templatePath = './test/data/guestbookTemplate.html';
@@ -10,7 +12,7 @@ const getFilePaths = () => {
 
 describe('GET /unknown', () => {
   it('Should serve 404 with no file found as body', (done) => {
-    const appRoute = app(getFilePaths());
+    const appRoute = app(getFilePaths(), identity);
     request(appRoute)
       .get('/unknown')
       .expect('content-type', 'text/plain')
@@ -21,7 +23,7 @@ describe('GET /unknown', () => {
 
 describe('staticHandler', () => {
   it('Should serve the homepage for GET /', (done) => {
-    const appRoute = app(getFilePaths());
+    const appRoute = app(getFilePaths(), identity);
     request(appRoute)
       .get('/')
       .expect(200, done)
@@ -31,7 +33,7 @@ describe('staticHandler', () => {
   });
 
   it('Should serve the styles for GET /style.css', (done) => {
-    const appRoute = app(getFilePaths());
+    const appRoute = app(getFilePaths(), identity);
     request(appRoute)
       .get('/css/guestbookStyle.css')
       .expect(200, done)
@@ -41,7 +43,7 @@ describe('staticHandler', () => {
   });
 
   it('Should serve the script.js for GET /script.js', (done) => {
-    const appRoute = app(getFilePaths());
+    const appRoute = app(getFilePaths(), identity);
     request(appRoute)
       .get('/script/guestbookScript.js')
       .expect(200, done)

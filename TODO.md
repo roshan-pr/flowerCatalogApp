@@ -1,15 +1,12 @@
 # DOING
 
-  - [ ] Provide the logger to the app 
-    - [ ] Through test provide the no operation logger to call next handler
-
   - [ ] Test the app with supertest
     - [x] noFileHandler
     - [x] staticFileHandler
     - [ ] loginHandler
 
 # TODO
-
+  - [ ] Provide session as dependency to create the app
   - [ ] Persist the credential with hashed password
 
 # MAYBE
@@ -18,6 +15,8 @@
   
 # Done
 
+  - [x] Provide the logger to the app 
+    - [x] Through test provide the no operation logger to call next handler
   - [x] Read files asynchronously
   - [x] Persist the credential of user
   - [x] Refactor the guestbook 

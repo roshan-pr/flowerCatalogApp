@@ -1,17 +1,18 @@
 const { startServer } = require('./src/server/server.js');
 const { app } = require('./src/app.js');
 
-const appConfig = (staticFilePath = './public') => {
+const getAppConfig = (staticFilePath = './public') => {
   return {
+    commentsFilePath: './data/comments.json',
     templatePath: './template/guestbookTemplate.html',
     staticFilePath,
-    commentsFilePath: './data/comments.json'
   };
 };
 
-const main = (staticPath) => {
-  const config = appConfig(staticPath);
-  startServer(8000, app(config));
+const logger = req => console.log(req.method, req.url.pathname);
+
+const main = (config) => {
+  startServer(8000, app(config, logger));
 };
 
-main(process.argv[2]);
+main(getAppConfig(process.argv[2]));
