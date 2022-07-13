@@ -1,6 +1,6 @@
 # DOING
 
-  - [ ] Read files asynchronously
+  - [ ] Test the app with supertest
 
 
 # TODO
@@ -9,7 +9,7 @@
   
 # Done
 
-  - [x] Test the app with supertest
+  - [x] Read files asynchronously
   - [x] Persist the credential of user
   - [x] Refactor the guestbook 
     - [x] Use xhr request for updating the page
