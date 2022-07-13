@@ -1,7 +1,7 @@
 const fs = require('fs');
 const mime = require('mime-types');
 
-const staticFileFrom = (rootPath = './public') => {
+const staticFileFrom = (rootPath) => {
 
   return ({ url }, res, next) => {
     url.pathname = url.pathname === '/' ? '/index.html' : url.pathname;

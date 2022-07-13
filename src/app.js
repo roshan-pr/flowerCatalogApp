@@ -22,12 +22,13 @@ const app = ({ commentsFilePath, templatePath, staticFilePath }) => {
 
   const loginPageTemplate = './template/loginTemplate.html';
   const handlers = [
-    logRequestHandler,
     parseBodyParams,
     searchParamsHandler,
+    logRequestHandler,
     injectCookies,
     injectSession(sessions),
     injectUsers(),
+
     signupHandler,
     loginHandler(sessions, loginPageTemplate),
     logoutHandler(sessions),

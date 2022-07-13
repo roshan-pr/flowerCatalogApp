@@ -1,5 +1,19 @@
 const { readFile } = require('./app/readFileContent.js');
 
+const persistUserDetails = (request) => {
+  const { username, password } = request.bodyParams;
+  request.users[username] = { username, password };
+  request.persistUsers(JSON.stringify(request.users));
+  return true;
+};
+
+const loadSignupPage = (response) => {
+  const signupTemplate = readFile('template/signupTemplate.html');
+  response.setHeader('content-type', 'text/html');
+  response.end(signupTemplate);
+  return true;
+};
+
 const signupHandler = (req, res, next) => {
   const { pathname } = req.url;
   if (pathname !== '/signup') {
@@ -7,16 +21,12 @@ const signupHandler = (req, res, next) => {
     return;
   }
   if (req.method === 'GET') {
-    const signupTemplate = readFile('template/signupTemplate.html');
-    res.setHeader('content-type', 'text/html');
-    res.end(signupTemplate);
+    loadSignupPage(res);
     return;
   }
 
   if (req.method === 'POST') {
-    const { username, password } = req.bodyParams;
-    req.users[username] = { username, password };
-    req.persistUsers(JSON.stringify(req.users));
+    persistUserDetails(req);
 
     res.statusCode = 302;
     res.setHeader('location', '/login');
@@ -25,4 +35,5 @@ const signupHandler = (req, res, next) => {
   }
   next();
 };
-exports.signupHandler = signupHandler;
+
+module.exports = { signupHandler };

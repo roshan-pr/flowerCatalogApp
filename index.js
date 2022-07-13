@@ -1,17 +1,16 @@
 const { startServer } = require('./src/server/server.js');
 const { app } = require('./src/app.js');
 
-const appConfig = (commentsFilePath) => {
-  commentsFilePath = commentsFilePath || './data/comments.json';
+const appConfig = (staticFilePath = './public') => {
   return {
     templatePath: './template/guestbookTemplate.html',
-    staticFilePath: './public',
-    commentsFilePath
-  }
+    staticFilePath,
+    commentsFilePath: './data/comments.json'
+  };
 };
 
-const main = (commentPath) => {
-  const config = appConfig(commentPath);
+const main = (staticPath) => {
+  const config = appConfig(staticPath);
   startServer(8000, app(config));
 };
 

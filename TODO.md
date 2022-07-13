@@ -1,10 +1,12 @@
 # DOING
 
   - [ ] Test the app with supertest
-
+    - [x] noFileHandler
+    - [ ] staticFileHandler
 
 # TODO
 
+  - [ ] Put the login and sign up page in public and redirect to the page
   - [ ] Persist the credential with hashed password
   
 # Done
