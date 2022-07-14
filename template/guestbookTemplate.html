@@ -9,6 +9,7 @@
 
 <body>
   <div class="page-wrapper">
+
     <header>
       <h2><a href="./index.html">&lt;&lt;</a>&nbsp;Guest Page</h2>
       <span class="logout"><a href="/logout">logout</a></span>
@@ -16,16 +17,16 @@
 
     <h3>Leave a comment</h3>
     <form id="form" action="add-comment" method="POST">
-      <label for="username">Name:__USERNAME__</label>
-      <div>
-        <label for="comment">Comment</label>
+      <div>Name:
+        <span class="username">__USERNAME__</span>
+      </div>
+
+      <div><label for="comment">Comment</label>
         <textarea name="comment" id="comment" cols="20" rows="5" required></textarea>
       </div>
     </form>
 
-    <div class="submit">
-      <button>Submit</button>
-    </div>
+    <div class="submit"><button>Submit</button></div>
 
     <table>
       <thead>

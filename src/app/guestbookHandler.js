@@ -14,7 +14,7 @@ const saveComment = ({ bodyParams, guestbook, session }, res) => {
   guestbook.saveComments();
 
   res.statusCode = 201;
-  res.end('');
+  res.end('successful');
 };
 
 const redirectToLogin = (req, res) => {
@@ -26,7 +26,11 @@ const redirectToLogin = (req, res) => {
 const guestbookHandler = (req, res, next) => {
   const { pathname } = req.url;
 
-  if (!req.session && pathname === '/guest-book') {
+  if (pathname !== '/guest-book' && pathname !== 'add-comment') {
+    next();
+    return;
+  }
+  if (!req.session) {
     redirectToLogin(req, res);
     return;
   }

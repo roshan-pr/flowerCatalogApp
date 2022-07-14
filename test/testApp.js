@@ -7,7 +7,7 @@ const logger = (req) => console.log(req.method, req.url.pathname);;
 const appSetup = {
   commentsFilePath: './test/data/comments.json',
   usersFilePath: './data/users.json',
-  templatePath: './test/data/guestbookTemplate.html',
+  templatePath: './template/guestbookTemplate.html',
   staticFilePath: './public',
 };
 
@@ -37,10 +37,10 @@ describe('staticHandler', () => {
     const app = createApp(appSetup, noOperation);
     request(app)
       .get('/css/guestbookStyle.css')
-      .expect(200, done)
       .expect('content-type', 'text/css')
-      .expect('content-length', '309')
-      .expect(/^body/)
+      .expect('content-length', '343')
+      .expect(/body/)
+      .expect(200, done)
   });
 
   it('Should serve the script.js for GET /script.js', (done) => {
@@ -73,7 +73,7 @@ describe('GET /login', () => {
     request(app)
       .get('/login')
       .expect('content-type', 'text/html')
-      .expect('content-length', '793')
+      .expect('content-length', '871')
       .expect(/Login page/)
       .expect(200, done)
   });
@@ -94,11 +94,64 @@ describe('POST /login', () => {
       .expect(302, done)
   });
 
-  it('Should direct to signup for invalid user', (done) => {
+  it('Should respond 401 for invalid user', (done) => {
     request(app)
       .post('/login')
       .send('username=unknown&password=unknown')
-      .expect('location', '/signup')
+      .expect(401, done)
+  });
+
+});
+
+describe('GET /guest-book', () => {
+  let app;
+  beforeEach(() => {
+    const sessions = { '123': { sessionId: 123, username: 'abc' } };
+    app = createApp(appSetup, noOperation, sessions);
+  });
+
+  it('Should serve guestbook for valid user', (done) => {
+    request(app)
+      .get('/guest-book')
+      .set('Cookie', 'id=123')
+      .expect(/Guest Book/)
+      .expect('content-length', '1042')
+      .expect('content-type', 'text/html')
+      .expect(200, done)
+  });
+
+  it('Should direct to login page for invalid user', (done) => {
+    // For user with no cookie set
+    request(app)
+      .get('/guest-book')
+      .expect('location', '/login')
+      .expect(302, done)
+  });
+
+});
+
+describe('POST /add-comment', () => {
+  let app;
+  beforeEach(() => {
+    const sessions = { '123': { sessionId: 123, username: 'abc' } };
+    app = createApp(appSetup, noOperation, sessions);
+  });
+
+  it('Should add comment and return successful msg', (done) => {
+    request(app)
+      .get('/guest-book')
+      .set('Cookie', 'id=123')
+      .expect(/Guest Book/)
+      .expect('content-length', '1042')
+      .expect('content-type', 'text/html')
+      .expect(200, done)
+  });
+
+  it('Should direct to login page for invalid user', (done) => {
+    // For user with no cookie set
+    request(app)
+      .get('/guest-book')
+      .expect('location', '/login')
       .expect(302, done)
   });
 

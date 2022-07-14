@@ -25,9 +25,8 @@ const redirectToGuestbook = (res) => {
   res.end();
 };
 
-const redirectToSignup = (res) => {
-  res.statusCode = 302;
-  res.setHeader('location', '/signup');
+const serveErrorCode = (res) => {
+  res.statusCode = 401;
   res.end();
   return true;
 };
@@ -46,7 +45,7 @@ const loginHandler = (sessions, loginFileName) => (req, res, next) => {
 
   if (pathname === '/login' && method === 'POST') {
     if (!isValidUser(req)) {
-      redirectToSignup(res);
+      serveErrorCode(res);
       return;
     }
     const { username } = req.bodyParams;

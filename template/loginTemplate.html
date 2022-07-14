@@ -3,6 +3,7 @@
 <head>
   <title>Login page</title>
   <link rel="stylesheet" href="./css/loginPageStyle.css">
+  <script src="./script/loginScript.js"></script>
 </head>
 
 <body>
@@ -11,7 +12,7 @@
       <h2>Login</h2>
     </header>
 
-    <form id="form" action="login" method="POST">
+    <form id="form" action="/login" method="POST">
       <div>
         <label for="name">Username</label>
         <input type="text" name="username" id="name" placeholder="Enter name" required>
@@ -21,11 +22,12 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password" placeholder="Enter password" required>
       </div>
-
-      <div class="login-button">
-        <input type="submit" value="Login">
-      </div>
     </form>
+    <span class="errMsg"></span>
+
+    <div class="login-button">
+      <input type="submit" value="Login">
+    </div>
 
     <div>
       <a href="/signup">

@@ -21,7 +21,7 @@ const injectUsers = (usersFilePath) => {
   const users = JSON.parse(userDetails) || {};
   return (req, res, next) => {
     req.users = users;
-    req.persistUsers = (usersData) => writeFile(filename, usersData);
+    req.persistUsers = (usersData) => writeFile(usersFilePath, usersData);
     next();
   }
 };

@@ -5,6 +5,10 @@ body {
 
 #page-wrapper {}
 
+.errMsg {
+  color: red;
+}
+
 div {
   margin-top: 20px;
 }

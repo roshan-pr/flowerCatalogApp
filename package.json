@@ -6,7 +6,8 @@
   "scripts": {
     "main": "index.js",
     "start": "node index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "watch": "mocha -w"
   },
   "repository": {
     "type": "git",

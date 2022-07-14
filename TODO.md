@@ -4,18 +4,26 @@
     - [x] noFileHandler
     - [x] staticFileHandler
     - [x] loginHandler
-    - [ ] signUpHandler
+    - [x] signUpHandler
+    - [x] guestbookHandler
+    - [ ] signUp
+    - [ ] logout
 
 # TODO
-  - [ ] Provide session as dependency to create the app
+
+  - [ ] Refactor signUp page 
+      - [ ] show message user exist or sign up successful
+  - [ ] Provide users as dependency to create the app
   - [ ] Persist the credential with hashed password
 
 # MAYBE
 
+  - [ ] Test for guestbook class
   - [ ] Put the login and sign up page in public and redirect to the page
   
 # Done
 
+  - [x] Provide session as dependency to create the app
   - [x] Provide the logger to the app 
     - [x] Through test provide the no operation logger to call next handler
   - [x] Read files asynchronously

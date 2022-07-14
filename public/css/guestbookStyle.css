@@ -25,3 +25,7 @@ table>tbody>tr:nth-child(even) {
   text-decoration: none;
   float: right;
 }
+
+.username {
+  font-size: 30px;
+}

@@ -42,7 +42,7 @@ const performXHR = (method, url, callback, body = '') => {
 
 const requestForComments = () => {
   const commentsUrl = '/api/comments';
-  performXHR('GET', commentsUrl, updateTable);
+  xhrRequest('GET', commentsUrl, updateTable);
 };
 
 const sendComment = () => {
@@ -50,7 +50,7 @@ const sendComment = () => {
   const formData = new FormData(form);
   const body = new URLSearchParams(formData);
 
-  performXHR('POST', '/add-comment', requestForComments, body.toString());
+  xhrRequest('POST', '/add-comment', requestForComments, body.toString());
 
   form.reset();
 };
