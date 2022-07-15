@@ -27,7 +27,7 @@ const loginRequest = () => {
     'POST',
     '/login',
     redirectToGuestbook,
-    body.toString(),
+    body,
     displayWrongCredential(messageElement));
 
   form.reset();

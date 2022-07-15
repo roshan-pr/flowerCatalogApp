@@ -1,10 +1,13 @@
 # DOING
 
-  - [ ] Refactor signUp page 
-      - [ ] show message user exist or sign up successful
+  - [ ] Refactor the guestbook class
+    - [ ] Read write dependencies should not be in class
+
 
 # TODO
 
+  - [ ] Refactor signUp page 
+      - [ ] show message user exist or sign up successful
   - [ ] Test the app with supertest
   - [ ] Provide users as dependency to create the app
     - [ ] Implement users class, with behaviors persist

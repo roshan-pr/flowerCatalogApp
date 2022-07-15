@@ -2,10 +2,8 @@ const createCommentElement = (commentInfo) => {
   const { name, comment, date } = commentInfo;
   const nameElement = document.createElement('td');
   nameElement.innerText = name;
-
   const commentElement = document.createElement('td');
   commentElement.innerText = comment;
-
   const dateElement = document.createElement('td');
   dateElement.innerText = date;
 
@@ -40,7 +38,7 @@ const xhrRequest = (method, url, callback, body = '') => {
 };
 
 const requestForComments = () => {
-  const commentsUrl = '/api/comments';
+  const commentsUrl = '/guest-book/api/comments';
   xhrRequest('GET', commentsUrl, updateTable);
 };
 
@@ -49,7 +47,8 @@ const sendComment = () => {
   const formData = new FormData(form);
   const body = new URLSearchParams(formData);
 
-  xhrRequest('POST', '/guest-book/add-comment', requestForComments, body.toString());
+  xhrRequest('POST', '/guest-book/add-comment',
+    requestForComments, body.toString());
 
   form.reset();
 };

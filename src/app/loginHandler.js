@@ -1,27 +1,27 @@
-const { readFile } = require('./readFileContent');
+const express = require('express');
 
 const createSession = (username) => {
   const date = new Date();
   return { sessionId: date.getTime(), username }
 };
 
-const isValidUser = ({ users, bodyParams: { username, password } }) => {
+const isValidUser = (req) => {
+  const { users, body: { username, password } } = req;
   if (!users[username]) {
     return false;
   }
   return users[username].password === password;
 };
 
-const serveLoginPage = (res, loginFileName) => {
+const serveLoginPage = (res, loginFileName, readFile) => {
   const loginTemplate = readFile(loginFileName);
   res.setHeader('content-type', 'text/html');
   res.end(loginTemplate);
 };
 
 const redirectToGuestbook = (res) => {
-  res.statusCode = 302;
-  res.setHeader('location', '/guest-book');
-  res.end();
+  res.redirect('/guest-book');
+  res.status(302).end();
 };
 
 const serveErrorCode = (res) => {
@@ -29,48 +29,19 @@ const serveErrorCode = (res) => {
   res.end();
 };
 
-const loginHandler = (sessions, loginFileName) => (req, res, next) => {
-  const { method, url: pathname } = req;
-
-  if (pathname === '/login' && method === 'GET') {
-    if (req.session) {
-      redirectToGuestbook(res);
-      return;
-    }
-    serveLoginPage(res, loginFileName);
-    return;
-  }
-
-  if (pathname === '/login' && method === 'POST') {
-    if (!isValidUser(req)) {
-      serveErrorCode(res);
-      return;
-    }
-    const { username } = req.bodyParams;
-    const session = createSession(username);
-    sessions[session.sessionId] = session;
-    res.setHeader('Set-Cookie', `id=${session.sessionId}`);
-
-    redirectToGuestbook(res);
-    return;
-  }
-
-  next();
-};
-
-const createLoginPage = (sessions, loginFileName) => (req, res, next) => {
+const createLoginPage = (loginFileName, readFile) => (req, res) => {
   if (req.session) {
     return redirectToGuestbook(res);
   }
-  return serveLoginPage(res, loginFileName);
+  return serveLoginPage(res, loginFileName, readFile);
 };
 
-const loginUser = (sessions) => (req, res, next) => {
+const loginUser = (sessions) => (req, res) => {
   if (!isValidUser(req)) {
     serveErrorCode(res);
     return;
   }
-  const { username } = req.bodyParams;
+  const { username } = req.body;
   const session = createSession(username);
   sessions[session.sessionId] = session;
   res.setHeader('Set-Cookie', `id=${session.sessionId}`);
@@ -79,5 +50,4 @@ const loginUser = (sessions) => (req, res, next) => {
   return;
 };
 
-module.exports = { createLoginPage, loginUser };
-
+module.exports = { loginUser, createLoginPage };

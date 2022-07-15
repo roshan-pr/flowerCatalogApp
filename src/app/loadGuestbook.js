@@ -9,6 +9,7 @@ const loadGuestbook = (commentPath, templatePath) => {
   guestbook.load();
 
   return (req, res, next) => {
+    const pathname = req.url;
     req.guestbook = guestbook;
     next();
   };

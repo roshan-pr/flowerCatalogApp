@@ -59,7 +59,7 @@ describe('staticHandler', () => {
       .get('/script/guestbookScript.js')
       .expect(200, done)
       .expect('content-type', /application\/javascript/)
-      .expect('content-length', '1637')
+      .expect('content-length', '1650')
       .expect(/window.onload = main;/)
   });
 });
@@ -198,11 +198,11 @@ describe('POST /signup', () => {
   });
 });
 
-describe('GET /api/comments', () => {
+describe('GET /guest-book/api/comments', () => {
   it('Should serve the comments', (done) => {
     const app = createApp(appSetup(), noOperation);
     request(app)
-      .get('/api/comments')
+      .get('/guest-book/api/comments')
       .expect('content-type', /application\/json/)
       .expect(/\[{"name"/)
       .expect(200, done)
