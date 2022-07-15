@@ -20,7 +20,6 @@ const createCommentElement = (commentInfo) => {
 const updateTable = xhr => {
   console.log('Updating table');
   const comments = JSON.parse(xhr.response);
-
   const tBodyElement = document.querySelector('tbody');
   tBodyElement.innerText = '';
   comments.forEach(comment => {
@@ -29,7 +28,7 @@ const updateTable = xhr => {
   });
 };
 
-const performXHR = (method, url, callback, body = '') => {
+const xhrRequest = (method, url, callback, body = '') => {
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
     if (xhr.status === 200 || xhr.status === 201) {
@@ -50,7 +49,7 @@ const sendComment = () => {
   const formData = new FormData(form);
   const body = new URLSearchParams(formData);
 
-  xhrRequest('POST', '/add-comment', requestForComments, body.toString());
+  xhrRequest('POST', '/guest-book/add-comment', requestForComments, body.toString());
 
   form.reset();
 };

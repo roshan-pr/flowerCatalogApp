@@ -1,13 +1,9 @@
 const logoutHandler = (sessions) => (req, res, next) => {
-  if (req.url.pathname === '/logout') {
-    const { id } = req.cookies;
-    res.statusCode = 302;
-    res.setHeader('location', '/');
-    res.setHeader('set-cookie', `id=${id}; Max-Age=0`);
-    delete sessions[id];
-    res.end();
-    return;
-  }
-  next();
+  const { id } = req.cookies;
+  res.location('/');
+  res.clearCookie(`id=${id}`);
+  delete sessions[id];
+  res.status(302).end();
+  return;
 };
 exports.logoutHandler = logoutHandler;

@@ -16,7 +16,6 @@ const serveLoginPage = (res, loginFileName) => {
   const loginTemplate = readFile(loginFileName);
   res.setHeader('content-type', 'text/html');
   res.end(loginTemplate);
-  return true;
 };
 
 const redirectToGuestbook = (res) => {
@@ -28,11 +27,10 @@ const redirectToGuestbook = (res) => {
 const serveErrorCode = (res) => {
   res.statusCode = 401;
   res.end();
-  return true;
 };
 
 const loginHandler = (sessions, loginFileName) => (req, res, next) => {
-  const { method, url: { pathname } } = req;
+  const { method, url: pathname } = req;
 
   if (pathname === '/login' && method === 'GET') {
     if (req.session) {
@@ -60,5 +58,26 @@ const loginHandler = (sessions, loginFileName) => (req, res, next) => {
   next();
 };
 
-module.exports = { loginHandler };
+const createLoginPage = (sessions, loginFileName) => (req, res, next) => {
+  if (req.session) {
+    return redirectToGuestbook(res);
+  }
+  return serveLoginPage(res, loginFileName);
+};
+
+const loginUser = (sessions) => (req, res, next) => {
+  if (!isValidUser(req)) {
+    serveErrorCode(res);
+    return;
+  }
+  const { username } = req.bodyParams;
+  const session = createSession(username);
+  sessions[session.sessionId] = session;
+  res.setHeader('Set-Cookie', `id=${session.sessionId}`);
+
+  redirectToGuestbook(res);
+  return;
+};
+
+module.exports = { createLoginPage, loginUser };
 

@@ -7,44 +7,28 @@ const createPage = (req, res) => {
   res.end(htmlPage);
 };
 
-const saveComment = ({ bodyParams, guestbook, session }, res) => {
-  const { comment } = bodyParams
+const addComment = ({ bodyParams, guestbook, session }, res) => {
+  const { comment } = bodyParams;
   const name = session.username;
   guestbook.addEntry(name, comment);
   guestbook.saveComments();
 
-  res.statusCode = 201;
-  res.end('successful');
+  res.status(201).end('successful');
 };
 
 const redirectToLogin = (req, res) => {
-  res.statusCode = 302;
-  res.setHeader('location', '/login');
-  res.end();
+  res.redirect('/login');
+  res.status(302).end();
 };
 
-const guestbookHandler = (req, res, next) => {
-  const { pathname } = req.url;
+const serveGuestbookPage = (req, res) => {
+  const session = req.session;
 
-  if (pathname !== '/guest-book' && pathname !== 'add-comment') {
-    next();
-    return;
-  }
-  if (!req.session) {
-    redirectToLogin(req, res);
-    return;
-  }
+  if (!session) {
+    return redirectToLogin(req, res);
+  };
 
-  if (pathname === '/guest-book' && req.method === 'GET') {
-    createPage(req, res);
-    return;
-  }
-
-  if (pathname === '/add-comment' && req.method === 'POST') {
-    saveComment(req, res);
-    return;
-  }
-  next();
+  return createPage(req, res);
 };
 
-module.exports = { guestbookHandler };
+module.exports = { serveGuestbookPage, addComment };

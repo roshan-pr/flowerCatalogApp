@@ -1,19 +1,13 @@
 # DOING
 
-  - [ ] Test the app with supertest
-    - [x] noFileHandler
-    - [x] staticFileHandler
-    - [x] loginHandler
-    - [x] signUpHandler
-    - [x] guestbookHandler
-    - [ ] signUp
-    - [ ] logout
+  - [ ] Refactor signUp page 
+      - [ ] show message user exist or sign up successful
 
 # TODO
 
-  - [ ] Refactor signUp page 
-      - [ ] show message user exist or sign up successful
+  - [ ] Test the app with supertest
   - [ ] Provide users as dependency to create the app
+    - [ ] Implement users class, with behaviors persist
   - [ ] Persist the credential with hashed password
 
 # MAYBE
@@ -23,6 +17,16 @@
   
 # Done
 
+  - [x] Migrate to express
+  - [x] Test the app with supertest
+    - [x] noFileHandler
+    - [x] staticFileHandler
+    - [x] loginHandler
+    - [x] signUpHandler
+    - [x] guestbookHandler
+    - [x] signUp
+    - [x] logout
+    - [x] add-comment
   - [x] Provide session as dependency to create the app
   - [x] Provide the logger to the app 
     - [x] Through test provide the no operation logger to call next handler

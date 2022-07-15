@@ -2,8 +2,6 @@ const tr = rowContent => `<tr>${rowContent}</tr>`;
 
 const td = data => `<td>${data}</td>`;
 
-const tableBody = body => `<tbody>${body}</tbody>`;
-
 const generateHtml = (username, comments, template) => {
   const htmlBody = comments.map(commentInfo => {
     const { name, comment, date } = commentInfo;
@@ -49,7 +47,7 @@ class Guestbook {
     this.#comments.unshift({ name, comment, date: new Date().toLocaleString() });
   }
 
-  searchComments(name) {
+  getCommentsBy(name) {
     return this.#comments.filter(comment => comment.name === name);
   }
 
